@@ -1,0 +1,479 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1AE749051A3EA984000DE0F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE749041A3EA984000DE0F1 /* AppDelegate.swift */; };
+		1AE749071A3EA984000DE0F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE749061A3EA984000DE0F1 /* ViewController.swift */; };
+		1AE7490A1A3EA984000DE0F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AE749081A3EA984000DE0F1 /* Main.storyboard */; };
+		1AE7490C1A3EA984000DE0F1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AE7490B1A3EA984000DE0F1 /* Images.xcassets */; };
+		1AE7490F1A3EA984000DE0F1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AE7490D1A3EA984000DE0F1 /* LaunchScreen.xib */; };
+		1AE7491B1A3EA985000DE0F1 /* YTKKeyValueStore_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7491A1A3EA985000DE0F1 /* YTKKeyValueStore_SwiftTests.swift */; };
+		1AE749271A3EA9C5000DE0F1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE749261A3EA9C5000DE0F1 /* libsqlite3.dylib */; };
+		1AE749501A3EAB04000DE0F1 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE749461A3EAB04000DE0F1 /* FMDatabase.m */; };
+		1AE749511A3EAB04000DE0F1 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE749481A3EAB04000DE0F1 /* FMDatabaseAdditions.m */; };
+		1AE749521A3EAB04000DE0F1 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7494A1A3EAB04000DE0F1 /* FMDatabasePool.m */; };
+		1AE749531A3EAB04000DE0F1 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7494C1A3EAB04000DE0F1 /* FMDatabaseQueue.m */; };
+		1AE749541A3EAB04000DE0F1 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7494F1A3EAB04000DE0F1 /* FMResultSet.m */; };
+		1AE749561A3EAB31000DE0F1 /* YTKKeyValueStore_Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE749551A3EAB31000DE0F1 /* YTKKeyValueStore_Swift.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1AE749151A3EA985000DE0F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1AE748F71A3EA984000DE0F1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1AE748FE1A3EA984000DE0F1;
+			remoteInfo = YTKKeyValueStore_Swift;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1AE748FF1A3EA984000DE0F1 /* YTKKeyValueStore_Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YTKKeyValueStore_Swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AE749031A3EA984000DE0F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1AE749041A3EA984000DE0F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1AE749061A3EA984000DE0F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1AE749091A3EA984000DE0F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1AE7490B1A3EA984000DE0F1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1AE7490E1A3EA984000DE0F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		1AE749141A3EA985000DE0F1 /* YTKKeyValueStore_SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YTKKeyValueStore_SwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AE749191A3EA985000DE0F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1AE7491A1A3EA985000DE0F1 /* YTKKeyValueStore_SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTKKeyValueStore_SwiftTests.swift; sourceTree = "<group>"; };
+		1AE749261A3EA9C5000DE0F1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		1AE749401A3EAAD7000DE0F1 /* YTKKeyValueStore_Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YTKKeyValueStore_Swift-Bridging-Header.h"; sourceTree = "<group>"; };
+		1AE749451A3EAB04000DE0F1 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		1AE749461A3EAB04000DE0F1 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		1AE749471A3EAB04000DE0F1 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		1AE749481A3EAB04000DE0F1 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		1AE749491A3EAB04000DE0F1 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		1AE7494A1A3EAB04000DE0F1 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		1AE7494B1A3EAB04000DE0F1 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		1AE7494C1A3EAB04000DE0F1 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		1AE7494D1A3EAB04000DE0F1 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		1AE7494E1A3EAB04000DE0F1 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		1AE7494F1A3EAB04000DE0F1 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		1AE749551A3EAB31000DE0F1 /* YTKKeyValueStore_Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKKeyValueStore_Swift.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1AE748FC1A3EA984000DE0F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AE749271A3EA9C5000DE0F1 /* libsqlite3.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1AE749111A3EA985000DE0F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1AE748F61A3EA984000DE0F1 = {
+			isa = PBXGroup;
+			children = (
+				1AE749261A3EA9C5000DE0F1 /* libsqlite3.dylib */,
+				1AE749011A3EA984000DE0F1 /* YTKKeyValueStore_Swift */,
+				1AE749171A3EA985000DE0F1 /* YTKKeyValueStore_SwiftTests */,
+				1AE749001A3EA984000DE0F1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1AE749001A3EA984000DE0F1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1AE748FF1A3EA984000DE0F1 /* YTKKeyValueStore_Swift.app */,
+				1AE749141A3EA985000DE0F1 /* YTKKeyValueStore_SwiftTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1AE749011A3EA984000DE0F1 /* YTKKeyValueStore_Swift */ = {
+			isa = PBXGroup;
+			children = (
+				1AE749551A3EAB31000DE0F1 /* YTKKeyValueStore_Swift.swift */,
+				1AE749441A3EAB04000DE0F1 /* FMDB */,
+				1AE749041A3EA984000DE0F1 /* AppDelegate.swift */,
+				1AE749061A3EA984000DE0F1 /* ViewController.swift */,
+				1AE749081A3EA984000DE0F1 /* Main.storyboard */,
+				1AE7490B1A3EA984000DE0F1 /* Images.xcassets */,
+				1AE7490D1A3EA984000DE0F1 /* LaunchScreen.xib */,
+				1AE749021A3EA984000DE0F1 /* Supporting Files */,
+				1AE749401A3EAAD7000DE0F1 /* YTKKeyValueStore_Swift-Bridging-Header.h */,
+			);
+			path = YTKKeyValueStore_Swift;
+			sourceTree = "<group>";
+		};
+		1AE749021A3EA984000DE0F1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1AE749031A3EA984000DE0F1 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1AE749171A3EA985000DE0F1 /* YTKKeyValueStore_SwiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				1AE7491A1A3EA985000DE0F1 /* YTKKeyValueStore_SwiftTests.swift */,
+				1AE749181A3EA985000DE0F1 /* Supporting Files */,
+			);
+			path = YTKKeyValueStore_SwiftTests;
+			sourceTree = "<group>";
+		};
+		1AE749181A3EA985000DE0F1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1AE749191A3EA985000DE0F1 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1AE749441A3EAB04000DE0F1 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				1AE749451A3EAB04000DE0F1 /* FMDatabase.h */,
+				1AE749461A3EAB04000DE0F1 /* FMDatabase.m */,
+				1AE749471A3EAB04000DE0F1 /* FMDatabaseAdditions.h */,
+				1AE749481A3EAB04000DE0F1 /* FMDatabaseAdditions.m */,
+				1AE749491A3EAB04000DE0F1 /* FMDatabasePool.h */,
+				1AE7494A1A3EAB04000DE0F1 /* FMDatabasePool.m */,
+				1AE7494B1A3EAB04000DE0F1 /* FMDatabaseQueue.h */,
+				1AE7494C1A3EAB04000DE0F1 /* FMDatabaseQueue.m */,
+				1AE7494D1A3EAB04000DE0F1 /* FMDB.h */,
+				1AE7494E1A3EAB04000DE0F1 /* FMResultSet.h */,
+				1AE7494F1A3EAB04000DE0F1 /* FMResultSet.m */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1AE748FE1A3EA984000DE0F1 /* YTKKeyValueStore_Swift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1AE7491E1A3EA985000DE0F1 /* Build configuration list for PBXNativeTarget "YTKKeyValueStore_Swift" */;
+			buildPhases = (
+				1AE748FB1A3EA984000DE0F1 /* Sources */,
+				1AE748FC1A3EA984000DE0F1 /* Frameworks */,
+				1AE748FD1A3EA984000DE0F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YTKKeyValueStore_Swift;
+			productName = YTKKeyValueStore_Swift;
+			productReference = 1AE748FF1A3EA984000DE0F1 /* YTKKeyValueStore_Swift.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1AE749131A3EA985000DE0F1 /* YTKKeyValueStore_SwiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1AE749211A3EA985000DE0F1 /* Build configuration list for PBXNativeTarget "YTKKeyValueStore_SwiftTests" */;
+			buildPhases = (
+				1AE749101A3EA985000DE0F1 /* Sources */,
+				1AE749111A3EA985000DE0F1 /* Frameworks */,
+				1AE749121A3EA985000DE0F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1AE749161A3EA985000DE0F1 /* PBXTargetDependency */,
+			);
+			name = YTKKeyValueStore_SwiftTests;
+			productName = YTKKeyValueStore_SwiftTests;
+			productReference = 1AE749141A3EA985000DE0F1 /* YTKKeyValueStore_SwiftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1AE748F71A3EA984000DE0F1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = ysq;
+				TargetAttributes = {
+					1AE748FE1A3EA984000DE0F1 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					1AE749131A3EA985000DE0F1 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 1AE748FE1A3EA984000DE0F1;
+					};
+				};
+			};
+			buildConfigurationList = 1AE748FA1A3EA984000DE0F1 /* Build configuration list for PBXProject "YTKKeyValueStore_Swift" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1AE748F61A3EA984000DE0F1;
+			productRefGroup = 1AE749001A3EA984000DE0F1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1AE748FE1A3EA984000DE0F1 /* YTKKeyValueStore_Swift */,
+				1AE749131A3EA985000DE0F1 /* YTKKeyValueStore_SwiftTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1AE748FD1A3EA984000DE0F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AE7490A1A3EA984000DE0F1 /* Main.storyboard in Resources */,
+				1AE7490F1A3EA984000DE0F1 /* LaunchScreen.xib in Resources */,
+				1AE7490C1A3EA984000DE0F1 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1AE749121A3EA985000DE0F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1AE748FB1A3EA984000DE0F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AE749501A3EAB04000DE0F1 /* FMDatabase.m in Sources */,
+				1AE749071A3EA984000DE0F1 /* ViewController.swift in Sources */,
+				1AE749541A3EAB04000DE0F1 /* FMResultSet.m in Sources */,
+				1AE749521A3EAB04000DE0F1 /* FMDatabasePool.m in Sources */,
+				1AE749051A3EA984000DE0F1 /* AppDelegate.swift in Sources */,
+				1AE749511A3EAB04000DE0F1 /* FMDatabaseAdditions.m in Sources */,
+				1AE749561A3EAB31000DE0F1 /* YTKKeyValueStore_Swift.swift in Sources */,
+				1AE749531A3EAB04000DE0F1 /* FMDatabaseQueue.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1AE749101A3EA985000DE0F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AE7491B1A3EA985000DE0F1 /* YTKKeyValueStore_SwiftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1AE749161A3EA985000DE0F1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1AE748FE1A3EA984000DE0F1 /* YTKKeyValueStore_Swift */;
+			targetProxy = 1AE749151A3EA985000DE0F1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1AE749081A3EA984000DE0F1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1AE749091A3EA984000DE0F1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1AE7490D1A3EA984000DE0F1 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1AE7490E1A3EA984000DE0F1 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1AE7491C1A3EA985000DE0F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1AE7491D1A3EA985000DE0F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1AE7491F1A3EA985000DE0F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = YTKKeyValueStore_Swift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "YTKKeyValueStore_Swift/YTKKeyValueStore_Swift-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1AE749201A3EA985000DE0F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = YTKKeyValueStore_Swift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "YTKKeyValueStore_Swift/YTKKeyValueStore_Swift-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		1AE749221A3EA985000DE0F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = YTKKeyValueStore_SwiftTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YTKKeyValueStore_Swift.app/YTKKeyValueStore_Swift";
+			};
+			name = Debug;
+		};
+		1AE749231A3EA985000DE0F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = YTKKeyValueStore_SwiftTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YTKKeyValueStore_Swift.app/YTKKeyValueStore_Swift";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1AE748FA1A3EA984000DE0F1 /* Build configuration list for PBXProject "YTKKeyValueStore_Swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1AE7491C1A3EA985000DE0F1 /* Debug */,
+				1AE7491D1A3EA985000DE0F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1AE7491E1A3EA985000DE0F1 /* Build configuration list for PBXNativeTarget "YTKKeyValueStore_Swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1AE7491F1A3EA985000DE0F1 /* Debug */,
+				1AE749201A3EA985000DE0F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1AE749211A3EA985000DE0F1 /* Build configuration list for PBXNativeTarget "YTKKeyValueStore_SwiftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1AE749221A3EA985000DE0F1 /* Debug */,
+				1AE749231A3EA985000DE0F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1AE748F71A3EA984000DE0F1 /* Project object */;
+}

@@ -1,14 +1,15 @@
 //
-//  BYKeyValueStore.swift
-//  brandyond
+//  YTKKeyValueStore_Swift.swift
+//  YTKKeyValueStore
 //
-//  Created by ysq on 14/12/5.
-//  Copyright (c) 2014年 ysq. All rights reserved.
+//  Created by ysq on 14/12/15.
+//  Copyright (c) 2014年 TangQiao. All rights reserved.
 //
 
 import UIKit
 
-class BYKeyValueItem:NSObject{
+
+class YTKKeyValueItem_Swift:NSObject{
     var itemId : String?
     var itemObject : AnyObject?
     var createdTime : NSDate?
@@ -16,19 +17,18 @@ class BYKeyValueItem:NSObject{
     func description() -> String{
         return "id=\(itemId), value=\(itemObject), timeStamp=\(createdTime)"
     }
-
+    
 }
 
 
-
-class BYKeyValueStore: NSObject {
+class YTKKeyValueStore_Swift: NSObject {
     
     //文件夹路径
     let PATH_OF_DOCUMENT : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
     
     private var dbQueue : FMDatabaseQueue?
     
-    let DEFAULT_DB_NAME = "database.sqlite"
+    let DEFAULT_DB_NAME = "database_swift.sqlite"
     let CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS %@ ( id TEXT NOT NULL, json TEXT NOT NULL, createdTime TEXT NOT NULL, PRIMARY KEY(id)) "
     let UPDATE_ITEM_SQL = "REPLACE INTO %@ (id, json, createdTime) values (?, ?, ?)"
     let QUERY_ITEM_SQL = "SELECT json, createdTime from %@ where id = ? Limit 1"
@@ -70,7 +70,7 @@ class BYKeyValueStore: NSObject {
     :param: tableName 表单名
     */
     func createTable(#tableName:String!){
-        if !BYKeyValueStore.checkTableName(tableName) {
+        if !YTKKeyValueStore_Swift.checkTableName(tableName) {
             return
         }
         let sql = NSString(format: CREATE_TABLE_SQL, tableName)
@@ -89,7 +89,7 @@ class BYKeyValueStore: NSObject {
     :param: tableName 表单名
     */
     func clearTable(#tableName:String!){
-        if !BYKeyValueStore.checkTableName(tableName){
+        if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
         let sql = NSString(format: CLEAR_ALL_SQL, tableName)
@@ -110,7 +110,7 @@ class BYKeyValueStore: NSObject {
     :param: tableName 表单名
     */
     func putObject(object : AnyObject! , withId objectId: String! , intoTable tableName: String!){
-        if !BYKeyValueStore.checkTableName(tableName){
+        if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
         var error : NSError?
@@ -139,7 +139,7 @@ class BYKeyValueStore: NSObject {
     :returns: 对象数据
     */
     func getObjectById(objectId : String! , fromTable tableName : String! )->AnyObject?{
-        let item = self.getBYKeyValueItemById(objectId, fromTable: tableName)
+        let item = self.getYTKKeyValueItemById(objectId, fromTable: tableName)
         if item != nil {
             return item!.itemObject
         }
@@ -154,8 +154,8 @@ class BYKeyValueStore: NSObject {
     
     :returns: 对象数据
     */
-    func getBYKeyValueItemById(objectId :String! , fromTable tableName : String! )->BYKeyValueItem?{
-        if !BYKeyValueStore.checkTableName(tableName){
+    func getYTKKeyValueItemById(objectId :String! , fromTable tableName : String! )->YTKKeyValueItem_Swift?{
+        if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return nil
         }
         let sql = NSString(format: QUERY_ITEM_SQL, tableName)
@@ -176,7 +176,7 @@ class BYKeyValueStore: NSObject {
                 println("error, faild to prase to json")
                 return nil
             }
-            var item = BYKeyValueItem()
+            var item = YTKKeyValueItem_Swift()
             item.itemId = objectId
             item.itemObject = result!
             item.createdTime = createdTime
@@ -251,7 +251,7 @@ class BYKeyValueStore: NSObject {
     :returns: 所有数据
     */
     func getAllItemsFromTable(tableName : String!)->[AnyObject]?{
-        if !BYKeyValueStore.checkTableName(tableName){
+        if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return nil
         }
         let sql = NSString(format: SELECT_ALL_SQL, tableName)
@@ -259,7 +259,7 @@ class BYKeyValueStore: NSObject {
         dbQueue?.inDatabase({ (db) -> Void in
             var rs : FMResultSet = db.executeQuery(sql, withArgumentsInArray: nil)
             while(rs.next()){
-                var item = BYKeyValueItem()
+                var item = YTKKeyValueItem_Swift()
                 item.itemId = rs.stringForColumn("id")
                 item.itemObject = rs.stringForColumn("json")
                 item.createdTime = rs.dateForColumn("createdTime")
@@ -268,9 +268,9 @@ class BYKeyValueStore: NSObject {
             rs.close()
         })
         var error : NSError?
-
+        
         for i in 0..<result.count {
-            var item: BYKeyValueItem = result[i] as BYKeyValueItem
+            var item: YTKKeyValueItem_Swift = result[i] as YTKKeyValueItem_Swift
             error = nil
             var object: AnyObject? = NSJSONSerialization.JSONObjectWithData(item.itemObject!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.AllowFragments, error: &error)
             if error != nil {
@@ -291,7 +291,7 @@ class BYKeyValueStore: NSObject {
     :param: tableName 表单名
     */
     func deleteObjectById(objectId : String! , fromTable tableName:String!){
-        if !BYKeyValueStore.checkTableName(tableName){
+        if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
         let sql = NSString(format: DELETE_ITEM_SQL, tableName)
@@ -311,7 +311,7 @@ class BYKeyValueStore: NSObject {
     :param: tableName     表单名
     */
     func deleteObjectsByIdArray(objectIdArray:[AnyObject]! , fromTable tableName : String!){
-        if !BYKeyValueStore.checkTableName(tableName){
+        if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
         var stringBuilder = NSMutableString()
@@ -341,7 +341,7 @@ class BYKeyValueStore: NSObject {
     :param: tableName      表单名
     */
     func deleteObjectsByIdPrefix(objectIdPrefix :String , fromTable tableName:String){
-        if !BYKeyValueStore.checkTableName(tableName){
+        if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
         let sql = NSString(format: DELETE_ITEMS_WITH_PREFIX_SQL, tableName)
@@ -364,13 +364,4 @@ class BYKeyValueStore: NSObject {
     }
     
 }
-
-
-
-
-
-
-
-
-
 
