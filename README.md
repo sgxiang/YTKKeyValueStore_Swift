@@ -91,7 +91,7 @@ deleteObjectsByIdPrefix(objectIdfix:fromTable:)
 
 ```
 // 获得指定key的数据
-getYTKKeyValueItemById(objectId:fromTable:)->YTKKeyValueItem_Seift?
+getYTKKeyValueItemById(objectId:fromTable:)->YTKKeyValueItem_Swift?
 // 获得所有数据
 getAllItemsFromTable(tableName:)->[AnyObject]?
 ```
