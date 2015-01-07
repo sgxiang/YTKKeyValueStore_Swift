@@ -55,12 +55,12 @@ public class YTKKeyValueStore_Swift: NSObject {
     
     //MARK: - 初始化
     
-    override init(){
+    public override init(){
         super.init()
         self.setupDB(DEFAULT_DB_NAME)
     }
     
-    init(dbName : String!){
+    public init(dbName : String!){
         super.init()
         self.setupDB(dbName)
     }
