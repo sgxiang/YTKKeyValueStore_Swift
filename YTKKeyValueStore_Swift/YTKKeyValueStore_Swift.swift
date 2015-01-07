@@ -24,7 +24,7 @@ class YTKKeyValueItem_Swift:NSObject{
 class YTKKeyValueStore_Swift: NSObject {
     
     //文件夹路径
-    let PATH_OF_DOCUMENT : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
+    let PATH_OF_DOCUMENT : String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
     
     private var dbQueue : FMDatabaseQueue?
     
@@ -39,18 +39,28 @@ class YTKKeyValueStore_Swift: NSObject {
     let DELETE_ITEMS_WITH_PREFIX_SQL = "DELETE from %@ where id like ? "
     
     
-    class func checkTableName(tableName : NSString!)->Bool{
-        if(tableName.rangeOfString("").location != NSNotFound){
-            println("error, table name: %@ format error",tableName)
+    /**
+    检查名字是否合法
+    
+    :param: tableName 表名
+    
+    :returns: 合法性
+    */
+    class func checkTableName(tableName : String!)->Bool{
+        if find(tableName, " ") != nil{
+            println("error, table name: \(tableName) format error")
             return false
         }
         return true
     }
     
+    //MARK: - 初始化
+    
     override init(){
         super.init()
         self.setupDB(DEFAULT_DB_NAME)
     }
+    
     init(dbName : String!){
         super.init()
         self.setupDB(dbName)
@@ -63,6 +73,9 @@ class YTKKeyValueStore_Swift: NSObject {
         }
         dbQueue = FMDatabaseQueue(path: dbPath)
     }
+    
+    
+    //MARK: - 数据库操作
     
     /**
     创建表单
@@ -79,7 +92,7 @@ class YTKKeyValueStore_Swift: NSObject {
             result = db.executeUpdate(sql, withArgumentsInArray:nil)
         })
         if !result! {
-            println("error, failed to create table: %@",tableName)
+            println("error, failed to create table: \(tableName)")
         }
     }
     
@@ -98,7 +111,7 @@ class YTKKeyValueStore_Swift: NSObject {
             result = db.executeUpdate(sql, withArgumentsInArray:nil)
         })
         if !result!{
-            println("error, failed to clear table: %@",tableName)
+            println("error, failed to clear table: \(tableName)")
         }
     }
     
@@ -208,8 +221,8 @@ class YTKKeyValueStore_Swift: NSObject {
     */
     func getStringById(stringId : String! , fromTable tableName : String!)->String?{
         let array : AnyObject? = self.getObjectById(stringId, fromTable: tableName)
-        if let result = array as? NSArray {
-            return result[0] as? String
+        if let result = array as? [String]{
+            return result[0]
         }else{
             return nil
         }
@@ -222,7 +235,7 @@ class YTKKeyValueStore_Swift: NSObject {
     :param: numberId  索引
     :param: tableName 表单名
     */
-    func putNumber(number : NSNumber! , withId numberId : String! , intoTable tableName : String!){
+    func putNumber(number : CGFloat! , withId numberId : String! , intoTable tableName : String!){
         self.putObject([number], withId: numberId, intoTable: tableName)
     }
     
@@ -234,10 +247,10 @@ class YTKKeyValueStore_Swift: NSObject {
     
     :returns: 数字
     */
-    func getNumberById(numberId : String! , fromTable tableName : String!)->NSNumber?{
+    func getNumberById(numberId : String! , fromTable tableName : String!)->CGFloat?{
         let array : AnyObject? = self.getObjectById(numberId, fromTable: tableName)
-        if let result = array as? NSArray {
-            return result[0] as? NSNumber
+        if let result = array as? [CGFloat] {
+            return result[0]
         }else{
             return nil
         }
@@ -300,7 +313,7 @@ class YTKKeyValueStore_Swift: NSObject {
             result = db.executeUpdate(sql, withArgumentsInArray:[objectId])
         })
         if !result! {
-            println("error, failed to delete time from table: %@", tableName)
+            println("error, failed to delete time from table: \(tableName)")
         }
     }
     
@@ -314,14 +327,13 @@ class YTKKeyValueStore_Swift: NSObject {
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
-        var stringBuilder = NSMutableString()
+        var stringBuilder = ""
         for objectId in objectIdArray{
             var item = " '\(objectId)' "
-            if stringBuilder.length == 0 {
-                stringBuilder.appendString("item")
+            if stringBuilder.isEmpty {
+                stringBuilder += "item"
             }else{
-                stringBuilder.appendString(",")
-                stringBuilder.appendString(item)
+                stringBuilder += ",\(item)"
             }
         }
         let sql = NSString(format: DELETE_ITEMS_SQL, tableName,stringBuilder)
@@ -330,7 +342,7 @@ class YTKKeyValueStore_Swift: NSObject {
             result = db.executeUpdate(sql, withArgumentsInArray:nil)
         })
         if !result!{
-            println("error, failed to delete items by ids from table: %@",tableName)
+            println("error, failed to delete items by ids from table: \(tableName)")
         }
     }
     
@@ -345,13 +357,13 @@ class YTKKeyValueStore_Swift: NSObject {
             return
         }
         let sql = NSString(format: DELETE_ITEMS_WITH_PREFIX_SQL, tableName)
-        let prefixArgument = NSString(format: "%@%%", objectIdPrefix)
+        let prefixArgument = "\(objectIdPrefix)%"
         var result : Bool?
         dbQueue?.inDatabase({ (db) -> Void in
-            result = db.executeUpdate(sql, withArgumentsInArray:nil)
+            result = db.executeUpdate(sql, withArgumentsInArray:[prefixArgument])
         })
         if !result!{
-            println("error, failed to delete items by id prefix from table: %@",tableName)
+            println("error, failed to delete items by id prefix from table: \(tableName)")
         }
     }
     
