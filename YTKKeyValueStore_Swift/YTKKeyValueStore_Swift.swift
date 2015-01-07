@@ -9,7 +9,7 @@
 import UIKit
 
 
-class YTKKeyValueItem_Swift:NSObject{
+public class YTKKeyValueItem_Swift:NSObject{
     var itemId : String?
     var itemObject : AnyObject?
     var createdTime : NSDate?
@@ -20,23 +20,22 @@ class YTKKeyValueItem_Swift:NSObject{
     
 }
 
-
-class YTKKeyValueStore_Swift: NSObject {
+public class YTKKeyValueStore_Swift: NSObject {
     
     //文件夹路径
-    let PATH_OF_DOCUMENT : String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+    private let PATH_OF_DOCUMENT : String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
     
     private var dbQueue : FMDatabaseQueue?
     
-    let DEFAULT_DB_NAME = "database_swift.sqlite"
-    let CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS %@ ( id TEXT NOT NULL, json TEXT NOT NULL, createdTime TEXT NOT NULL, PRIMARY KEY(id)) "
-    let UPDATE_ITEM_SQL = "REPLACE INTO %@ (id, json, createdTime) values (?, ?, ?)"
-    let QUERY_ITEM_SQL = "SELECT json, createdTime from %@ where id = ? Limit 1"
-    let SELECT_ALL_SQL = "SELECT * from %@"
-    let CLEAR_ALL_SQL = "DELETE from %@"
-    let DELETE_ITEM_SQL = "DELETE from %@ where id = ?"
-    let DELETE_ITEMS_SQL = "DELETE from %@ where id in ( %@ )"
-    let DELETE_ITEMS_WITH_PREFIX_SQL = "DELETE from %@ where id like ? "
+    private let DEFAULT_DB_NAME = "database_swift.sqlite"
+    private let CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS %@ ( id TEXT NOT NULL, json TEXT NOT NULL, createdTime TEXT NOT NULL, PRIMARY KEY(id)) "
+    private let UPDATE_ITEM_SQL = "REPLACE INTO %@ (id, json, createdTime) values (?, ?, ?)"
+    private let QUERY_ITEM_SQL = "SELECT json, createdTime from %@ where id = ? Limit 1"
+    private let SELECT_ALL_SQL = "SELECT * from %@"
+    private let CLEAR_ALL_SQL = "DELETE from %@"
+    private let DELETE_ITEM_SQL = "DELETE from %@ where id = ?"
+    private let DELETE_ITEMS_SQL = "DELETE from %@ where id in ( %@ )"
+    private let DELETE_ITEMS_WITH_PREFIX_SQL = "DELETE from %@ where id like ? "
     
     
     /**
@@ -46,7 +45,7 @@ class YTKKeyValueStore_Swift: NSObject {
     
     :returns: 合法性
     */
-    class func checkTableName(tableName : String!)->Bool{
+    private class func checkTableName(tableName : String!)->Bool{
         if find(tableName, " ") != nil{
             println("error, table name: \(tableName) format error")
             return false
@@ -82,7 +81,7 @@ class YTKKeyValueStore_Swift: NSObject {
     
     :param: tableName 表单名
     */
-    func createTable(#tableName:String!){
+    public func createTable(#tableName:String!){
         if !YTKKeyValueStore_Swift.checkTableName(tableName) {
             return
         }
@@ -101,7 +100,7 @@ class YTKKeyValueStore_Swift: NSObject {
     
     :param: tableName 表单名
     */
-    func clearTable(#tableName:String!){
+    public func clearTable(#tableName:String!){
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
@@ -115,6 +114,8 @@ class YTKKeyValueStore_Swift: NSObject {
         }
     }
     
+    //MARK: 对象
+    
     /**
     加入数据
     
@@ -122,7 +123,7 @@ class YTKKeyValueStore_Swift: NSObject {
     :param: objectId  数据索引
     :param: tableName 表单名
     */
-    func putObject(object : AnyObject! , withId objectId: String! , intoTable tableName: String!){
+    public func putObject(object : AnyObject! , withId objectId: String! , intoTable tableName: String!){
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
@@ -151,7 +152,7 @@ class YTKKeyValueStore_Swift: NSObject {
     
     :returns: 对象数据
     */
-    func getObjectById(objectId : String! , fromTable tableName : String! )->AnyObject?{
+    public func getObjectById(objectId : String! , fromTable tableName : String! )->AnyObject?{
         let item = self.getYTKKeyValueItemById(objectId, fromTable: tableName)
         if item != nil {
             return item!.itemObject
@@ -167,7 +168,7 @@ class YTKKeyValueStore_Swift: NSObject {
     
     :returns: 对象数据
     */
-    func getYTKKeyValueItemById(objectId :String! , fromTable tableName : String! )->YTKKeyValueItem_Swift?{
+    public func getYTKKeyValueItemById(objectId :String! , fromTable tableName : String! )->YTKKeyValueItem_Swift?{
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return nil
         }
@@ -199,6 +200,7 @@ class YTKKeyValueStore_Swift: NSObject {
         }
     }
     
+    //MARK: 字符串
     
     /**
     插入字符串
@@ -207,7 +209,7 @@ class YTKKeyValueStore_Swift: NSObject {
     :param: stringId  索引
     :param: tableName 表单名
     */
-    func putString(string : String! , withId stringId : String! , intoTable tableName:String!){
+    public func putString(string : String! , withId stringId : String! , intoTable tableName:String!){
         self.putObject([string], withId: stringId, intoTable: tableName)
     }
     
@@ -219,7 +221,7 @@ class YTKKeyValueStore_Swift: NSObject {
     
     :returns: 字符串
     */
-    func getStringById(stringId : String! , fromTable tableName : String!)->String?{
+    public func getStringById(stringId : String! , fromTable tableName : String!)->String?{
         let array : AnyObject? = self.getObjectById(stringId, fromTable: tableName)
         if let result = array as? [String]{
             return result[0]
@@ -228,6 +230,8 @@ class YTKKeyValueStore_Swift: NSObject {
         }
     }
     
+    //MARK: 数组
+    
     /**
     插入数字
     
@@ -235,7 +239,7 @@ class YTKKeyValueStore_Swift: NSObject {
     :param: numberId  索引
     :param: tableName 表单名
     */
-    func putNumber(number : CGFloat! , withId numberId : String! , intoTable tableName : String!){
+    public func putNumber(number : CGFloat! , withId numberId : String! , intoTable tableName : String!){
         self.putObject([number], withId: numberId, intoTable: tableName)
     }
     
@@ -247,7 +251,7 @@ class YTKKeyValueStore_Swift: NSObject {
     
     :returns: 数字
     */
-    func getNumberById(numberId : String! , fromTable tableName : String!)->CGFloat?{
+    public func getNumberById(numberId : String! , fromTable tableName : String!)->CGFloat?{
         let array : AnyObject? = self.getObjectById(numberId, fromTable: tableName)
         if let result = array as? [CGFloat] {
             return result[0]
@@ -256,6 +260,8 @@ class YTKKeyValueStore_Swift: NSObject {
         }
     }
     
+    //MARK: 其他
+    
     /**
     获取表单的所有的数据
     
@@ -263,7 +269,7 @@ class YTKKeyValueStore_Swift: NSObject {
     
     :returns: 所有数据
     */
-    func getAllItemsFromTable(tableName : String!)->[AnyObject]?{
+    public func getAllItemsFromTable(tableName : String!)->[AnyObject]?{
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return nil
         }
@@ -298,12 +304,12 @@ class YTKKeyValueStore_Swift: NSObject {
     }
     
     /**
-    根据所以删除数据
+    根据索引删除数据
     
     :param: objectId  索引
     :param: tableName 表单名
     */
-    func deleteObjectById(objectId : String! , fromTable tableName:String!){
+    public func deleteObjectById(objectId : String! , fromTable tableName:String!){
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
@@ -323,7 +329,7 @@ class YTKKeyValueStore_Swift: NSObject {
     :param: objectIdArray 索引数组
     :param: tableName     表单名
     */
-    func deleteObjectsByIdArray(objectIdArray:[AnyObject]! , fromTable tableName : String!){
+    public func deleteObjectsByIdArray(objectIdArray:[AnyObject]! , fromTable tableName : String!){
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
@@ -352,7 +358,7 @@ class YTKKeyValueStore_Swift: NSObject {
     :param: objectIdPrefix 索引前缀
     :param: tableName      表单名
     */
-    func deleteObjectsByIdPrefix(objectIdPrefix :String , fromTable tableName:String){
+    public func deleteObjectsByIdPrefix(objectIdPrefix :String , fromTable tableName:String){
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
@@ -370,7 +376,7 @@ class YTKKeyValueStore_Swift: NSObject {
     /**
     关闭数据库
     */
-    func close(){
+    public func close(){
         dbQueue?.close()
         dbQueue = nil
     }
