@@ -10,11 +10,11 @@ import UIKit
 
 
 public class YTKKeyValueItem_Swift:NSObject{
-    var itemId : String?
-    var itemObject : AnyObject?
-    var createdTime : NSDate?
+    public var itemId : String?
+    public var itemObject : YTKObject?
+    public var createdTime : NSDate?
     
-    func description() -> String{
+    public func description() -> String{
         return "id=\(itemId), value=\(itemObject), timeStamp=\(createdTime)"
     }
     
@@ -116,6 +116,20 @@ public class YTKKeyValueStore_Swift: NSObject {
     
     //MARK: 对象
     
+    private enum YTKKeyValueType{
+        case String,Number,Object
+    }
+    
+    private class func valueWithType(object : AnyObject!)->YTKKeyValueType{
+        if object is String{
+            return .String
+        }else if object as? NSNumber != nil{
+            return .Number
+        }else{
+            return .Object
+        }
+    }
+    
     /**
     加入数据
     
@@ -123,24 +137,35 @@ public class YTKKeyValueStore_Swift: NSObject {
     :param: objectId  数据索引
     :param: tableName 表单名
     */
+    
     public func putObject(object : AnyObject! , withId objectId: String! , intoTable tableName: String!){
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
-        var error : NSError?
-        var data = NSJSONSerialization.dataWithJSONObject(object, options: NSJSONWritingOptions(0), error: &error)
-        if error != nil {
-            println("error, faild to get json data")
-            return
+        
+        let type = YTKKeyValueStore_Swift.valueWithType(object)
+        var jsonString : String?
+        
+        if type == .Number || type == .Object{
+            let sqlObject: AnyObject! = type == .Number ? [object] : object
+            var error : NSError?
+            let data = NSJSONSerialization.dataWithJSONObject(sqlObject, options: NSJSONWritingOptions(0), error: &error)
+            if error != nil {
+                println("error, faild to get json data")
+                return
+            }
+            jsonString = NSString(data: data!, encoding: NSUTF8StringEncoding)
         }else{
-            let jsonString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-            let createTime = NSDate()
-            let sql = NSString(format: UPDATE_ITEM_SQL, tableName)
-            var result : Bool?
-            dbQueue?.inDatabase({ (db) -> Void in
-                result = db.executeUpdate(sql, withArgumentsInArray:[objectId,jsonString!,createTime])
-            })
+            jsonString = object as? String
         }
+        
+        let createTime = NSDate()
+        let sql = NSString(format: UPDATE_ITEM_SQL, tableName)
+        var result : Bool?
+        dbQueue?.inDatabase({ (db) -> Void in
+            result = db.executeUpdate(sql, withArgumentsInArray:[objectId,jsonString!,createTime])
+        })
+       
     }
     
     
@@ -152,7 +177,7 @@ public class YTKKeyValueStore_Swift: NSObject {
     
     :returns: 对象数据
     */
-    public func getObjectById(objectId : String! , fromTable tableName : String! )->AnyObject?{
+    public func getObjectById(objectId : String! , fromTable tableName : String! )->YTKObject?{
         let item = self.getYTKKeyValueItemById(objectId, fromTable: tableName)
         if item != nil {
             return item!.itemObject
@@ -184,15 +209,9 @@ public class YTKKeyValueStore_Swift: NSObject {
             rs.close()
         })
         if json != nil{
-            var error : NSError?
-            var result: AnyObject? = NSJSONSerialization.JSONObjectWithData(json!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.AllowFragments, error: &error)
-            if error != nil{
-                println("error, faild to prase to json")
-                return nil
-            }
             var item = YTKKeyValueItem_Swift()
             item.itemId = objectId
-            item.itemObject = result!
+            item.itemObject = YTKObject(value:  json! )
             item.createdTime = createdTime
             return item
         }else{
@@ -200,65 +219,6 @@ public class YTKKeyValueStore_Swift: NSObject {
         }
     }
     
-    //MARK: 字符串
-    
-    /**
-    插入字符串
-    
-    :param: string    字符串
-    :param: stringId  索引
-    :param: tableName 表单名
-    */
-    public func putString(string : String! , withId stringId : String! , intoTable tableName:String!){
-        self.putObject([string], withId: stringId, intoTable: tableName)
-    }
-    
-    /**
-    获取字符串
-    
-    :param: stringId  索引
-    :param: tableName 表单名
-    
-    :returns: 字符串
-    */
-    public func getStringById(stringId : String! , fromTable tableName : String!)->String?{
-        let array : AnyObject? = self.getObjectById(stringId, fromTable: tableName)
-        if let result = array as? [String]{
-            return result[0]
-        }else{
-            return nil
-        }
-    }
-    
-    //MARK: 数组
-    
-    /**
-    插入数字
-    
-    :param: number    数字
-    :param: numberId  索引
-    :param: tableName 表单名
-    */
-    public func putNumber(number : CGFloat! , withId numberId : String! , intoTable tableName : String!){
-        self.putObject([number], withId: numberId, intoTable: tableName)
-    }
-    
-    /**
-    获取数字
-    
-    :param: numberId  索引
-    :param: tableName 表单名
-    
-    :returns: 数字
-    */
-    public func getNumberById(numberId : String! , fromTable tableName : String!)->CGFloat?{
-        let array : AnyObject? = self.getObjectById(numberId, fromTable: tableName)
-        if let result = array as? [CGFloat] {
-            return result[0]
-        }else{
-            return nil
-        }
-    }
     
     //MARK: 其他
     
@@ -269,38 +229,25 @@ public class YTKKeyValueStore_Swift: NSObject {
     
     :returns: 所有数据
     */
-    public func getAllItemsFromTable(tableName : String!)->[AnyObject]?{
+    public func getAllItemsFromTable(tableName : String!)->[YTKKeyValueItem_Swift]?{
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return nil
         }
         let sql = NSString(format: SELECT_ALL_SQL, tableName)
-        var result : [AnyObject] = []
+        var result : [YTKKeyValueItem_Swift] = []
         dbQueue?.inDatabase({ (db) -> Void in
             var rs : FMResultSet = db.executeQuery(sql, withArgumentsInArray: nil)
             while(rs.next()){
                 var item = YTKKeyValueItem_Swift()
                 item.itemId = rs.stringForColumn("id")
-                item.itemObject = rs.stringForColumn("json")
+                item.itemObject = YTKObject(value:rs.stringForColumn("json"))
                 item.createdTime = rs.dateForColumn("createdTime")
                 result.append(item)
             }
             rs.close()
         })
-        var error : NSError?
-        
-        for i in 0..<result.count {
-            var item: YTKKeyValueItem_Swift = result[i] as YTKKeyValueItem_Swift
-            error = nil
-            var object: AnyObject? = NSJSONSerialization.JSONObjectWithData(item.itemObject!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.AllowFragments, error: &error)
-            if error != nil {
-                println("error, faild to prase to json.")
-            }else{
-                item.itemObject = object!
-                result[i] = item
-            }
-        }
-        
-        return result
+
+        return result == [] ? nil : result
     }
     
     /**
@@ -380,6 +327,89 @@ public class YTKKeyValueStore_Swift: NSObject {
         dbQueue?.close()
         dbQueue = nil
     }
+    
+}
+
+//MARK: - 数据库的对象类型
+
+public struct YTKObject{
+    private var value : AnyObject?
+    
+    public var objectValue : AnyObject?{
+        get{
+            return self.value
+        }
+    }
+    
+    public var stringValue : String? {
+        get{
+            return self.value as? String
+        }
+    }
+    
+    public var numberValue : NSNumber?{
+        
+        get{
+            if self.value == nil { return nil}
+            
+            if let num = self.value as? NSNumber{
+                return num
+            }else{
+                
+                var error : NSError?
+                let result: AnyObject? = NSJSONSerialization.JSONObjectWithData(self.value!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.AllowFragments, error: &error)
+                if error != nil{
+                    return nil
+                }else{
+                    if let num = result as? [NSNumber]{
+                        return num[0]
+                    }else{
+                        return nil
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    public var dictionaryValue : Dictionary<String , AnyObject>?{
+        get{
+            if self.value == nil { return nil}
+
+            var error : NSError?
+            let result: AnyObject? = NSJSONSerialization.JSONObjectWithData(self.value!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.AllowFragments, error: &error)
+            if error != nil{
+                return nil
+            }else{
+                if let dic = result as? Dictionary<String , AnyObject>{
+                    return dic
+                }else{
+                    return nil
+                }
+            }
+            
+        }
+    }
+    
+    
+    public var arrayValue : Array<AnyObject>?{
+        get{
+            if self.value == nil { return nil}
+            
+            var error : NSError?
+            let result: AnyObject? = NSJSONSerialization.JSONObjectWithData(self.value!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.AllowFragments, error: &error)
+            if error != nil{
+                return nil
+            }else{
+                if let dic = result as? Array<AnyObject>{
+                    return dic
+                }else{
+                    return nil
+                }
+            }
+        }
+    }
+    
     
 }
 

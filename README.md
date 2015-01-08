@@ -7,6 +7,21 @@ YTKKeyValueStore_Swfit
 
 ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
 
+## 关于更新
+
+在不修改数据库结构的情况下优化了源版本提供的读写接口，去除了`putString`,`putNumber`,`getString`,`getNumber`的接口，统计集成在`putObject`和`getObject`中。写入时会自动判断并插入，读出时返回一个`YTKObject`对象，提供了以下属性读取相关的数据：
+
+```
+objectValue      ： 读取出AnyObject?的类型
+stringValue      ： 读取出String?的类型
+numberValue      ： 读取出NSNumber?的类型
+dictionaryValue  ： 读取出Dictionary<String , AnyObject>?的类型
+arrayValue       ： 读取出Array<AnyObject>?的类型
+```
+`YTKKeyValueItem_Swift`的`itemObject`也修改为`YTKObject`属性方便读取。
+
+旧的版本在`releases 0.1.0`中。地址： [YTKKeyValueStore_Swift(0.1.0)](https://github.com/sgxiang/YTKKeyValueStore_Swift/archive/0.1.0.zip)
+
 ## 使用示例
 
 ```swift
@@ -18,7 +33,7 @@ let key = "1"
 let user = ["id":1 , "name" : "tangqiao" , "age" : 30]
 store.putObject(user, withId: key, intoTable: tableName)
 //查询
-if let queryUser: AnyObject = store.getObjectById(key, fromTable: tableName){
+if let queryUser: AnyObject = store.getObjectById(key, fromTable: tableName)?.dictionaryValue{
 	println("[swift] query data result: \(queryUser)")
 }
 ```
@@ -54,17 +69,13 @@ store.createTable(tableName: tableName)
 `YTKKeyValueStore_Swift`类支持的value类型包括：String, CGFloat, Dictionary和Array以及对应的oc类型，为此提供了以下接口：
 
 ```
-putString(string:withId:intoTable:)
-putNumber(number:withId:intoTable:)
 putObject(objct:withId:intoTable:)
 ```
 
 与此对应，有以下value为String, CGFloat, Dictionary和Array的读取接口：
 
 ```
-getStringById(stringId:fromTable:)->String?
-getNumberById(numberId:fromTable:)->CGFloat?
-getObjectById(objectId:fromTable:)->AnyObject?
+getObjectById(objectId:fromTable:)->YTKObject?
 ```
 
 ### 删除数据接口
@@ -93,7 +104,7 @@ deleteObjectsByIdPrefix(objectIdfix:fromTable:)
 // 获得指定key的数据
 getYTKKeyValueItemById(objectId:fromTable:)->YTKKeyValueItem_Swift?
 // 获得所有数据
-getAllItemsFromTable(tableName:)->[AnyObject]?
+getAllItemsFromTable(tableName:)->[YTKKeyValueItem_Swift]?
 ```
 
 由于`YTKKeyValueItem_Swift`类带有`createdTime`字段，可以获得该条数据的插入（或更新）时间，以便上层做复杂的处理（例如用来做缓存过期逻辑）。

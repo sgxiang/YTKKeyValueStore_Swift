@@ -30,54 +30,51 @@ class YTKKeyValueStore_SwiftTests: XCTestCase {
         super.tearDown()
     }
     
-    func testSaveString(){
-       
-        let str1 = "abc"
-        let key1 = "key1"
-        let str2 = "abc2"
-        let key2 = "key2"
+    func testSave(){
         
-        _store?.putString(str1, withId: key1, intoTable: _tableName)
-        _store?.putString(str2, withId: key2, intoTable: _tableName)
+        let str = "abc"
+        let num1 = 1
+        let num2 = 1.3
+        let user : Dictionary<String,AnyObject> = ["id":1 , "name" : "tangqiao" , "age" : 30]
         
-        var result : String?
+        _store?.putObject(str, withId: "str", intoTable: _tableName)
+        _store?.putObject(num1, withId: "num1", intoTable: _tableName)
+        _store?.putObject(num2, withId: "num2", intoTable: _tableName)
+        _store?.putObject(user, withId: "user", intoTable: _tableName)
         
-        result = _store?.getStringById(key1, fromTable: _tableName)
-        XCTAssertNotNil(result)
-        XCTAssertEqual(str1, result!)
         
-        result = _store?.getStringById(key2, fromTable: _tableName)
-        XCTAssertNotNil(result)
-        XCTAssertEqual(str2, result!)
+        if let result =  _store?.getObjectById("str", fromTable: _tableName)?.stringValue{
+            XCTAssertEqual(str, result)
+        }else{
+            XCTAssertFalse(true)
+        }
         
-        result = _store?.getStringById("key3", fromTable: _tableName)
-        XCTAssertNil(result)
+        if let result = _store?.getObjectById("num1", fromTable: _tableName)?.numberValue{
+            XCTAssertEqual(num1, result)
+        }else{
+            XCTAssertFalse(true)
+        }
+        
+        if let result = _store?.getObjectById("num2", fromTable: _tableName)?.numberValue{
+            XCTAssertEqual(num2, result)
+        }else{
+            XCTAssertFalse(true)
+        }
+        
+        if let result = _store?.getObjectById("user", fromTable: _tableName)?.dictionaryValue{
+            XCTAssertEqual(user["id"] as Int, result["id"] as Int)
+            XCTAssertEqual(user["name"] as String, result["name"] as String)
+            XCTAssertEqual(user["age"] as Int, result["age"] as Int)
+        }else{
+            XCTAssertFalse(true)
+        }
+        
+        if let result = _store?.getObjectById("user1", fromTable: _tableName)?.dictionaryValue{
+            XCTAssertFalse(true)
+        }else{
+            XCTAssertTrue(true)
+        }
         
     }
-    
-    func testSaveCGFloat(){
-        
-        let num1 : CGFloat = 1
-        let key1 = "key1"
-        let num2 : CGFloat = 2
-        let key2 = "key2"
-        
-        _store?.putNumber(num1, withId: key1, intoTable: _tableName)
-        _store?.putNumber(num2, withId: key2, intoTable: _tableName)
-        
-        var result : CGFloat?
-        
-        result = _store?.getNumberById(key1, fromTable: _tableName)
-        XCTAssertNotNil(result)
-        XCTAssertEqual(num1, result!)
-        
-        result = _store?.getNumberById(key2, fromTable: _tableName)
-        XCTAssertNotNil(result)
-        XCTAssertEqual(num2, result!)
-        
-        result = _store?.getNumberById("key3", fromTable: _tableName)
-        XCTAssertNil(result)
-    
-    }
-    
+   
 }

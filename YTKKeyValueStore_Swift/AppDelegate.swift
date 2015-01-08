@@ -19,11 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tableName = "user_table_swift"
         var store = YTKKeyValueStore_Swift(dbName: "test_siwft.db")
         store.createTable(tableName: tableName)
+        store.clearTable(tableName: tableName)
         let key = "1"
         let user = ["id":1 , "name" : "tangqiao" , "age" : 30]
         store.putObject(user, withId: key, intoTable: tableName)
         
-        if let queryUser: AnyObject = store.getObjectById(key, fromTable: tableName){
+        if let queryUser: AnyObject = store.getObjectById(key, fromTable: tableName)?.dictionaryValue{
             println("[swift] query data result: \(queryUser)")
         }
         
