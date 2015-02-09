@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SQLite
 
 public class YTKKeyValueItem_Swift:NSObject{
     public var itemId : String?
@@ -25,19 +25,14 @@ public class YTKKeyValueStore_Swift: NSObject {
     //文件夹路径
     private let PATH_OF_DOCUMENT : String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
     
-    private var dbQueue : FMDatabaseQueue?
+    private var db : Database?
     
     private let DEFAULT_DB_NAME = "database_swift.sqlite"
-    private let CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS %@ ( id TEXT NOT NULL, json TEXT NOT NULL, createdTime TEXT NOT NULL, PRIMARY KEY(id)) "
-    private let UPDATE_ITEM_SQL = "REPLACE INTO %@ (id, json, createdTime) values (?, ?, ?)"
-    private let QUERY_ITEM_SQL = "SELECT json, createdTime from %@ where id = ? Limit 1"
-    private let SELECT_ALL_SQL = "SELECT * from %@"
-    private let CLEAR_ALL_SQL = "DELETE from %@"
-    private let DELETE_ITEM_SQL = "DELETE from %@ where id = ?"
-    private let DELETE_ITEMS_SQL = "DELETE from %@ where id in ( %@ )"
-    private let DELETE_ITEMS_WITH_PREFIX_SQL = "DELETE from %@ where id like ? "
     
-    
+    private let id = Expression<String>("id")
+    private let json = Expression<String>("json")
+    private let createTime = Expression<NSDate>("createTime")
+
     /**
     检查名字是否合法
     
@@ -67,12 +62,11 @@ public class YTKKeyValueStore_Swift: NSObject {
     
     private func setupDB(dbName : String!){
         let dbPath = PATH_OF_DOCUMENT.stringByAppendingPathComponent(dbName)
-        if dbQueue != nil{
-            self.close()
+        if db != nil{
+            db = nil
         }
-        dbQueue = FMDatabaseQueue(path: dbPath)
+        db = Database(dbPath)
     }
-    
     
     //MARK: - 数据库操作
     
@@ -85,13 +79,11 @@ public class YTKKeyValueStore_Swift: NSObject {
         if !YTKKeyValueStore_Swift.checkTableName(tableName) {
             return
         }
-        let sql = NSString(format: CREATE_TABLE_SQL, tableName)
-        var result : Bool?
-        dbQueue?.inDatabase({ (db) -> Void in
-            result = db.executeUpdate(sql, withArgumentsInArray:nil)
-        })
-        if !result! {
-            println("error, failed to create table: \(tableName)")
+        db?.create(table: db![tableName] , ifNotExists : true){t in
+            t.column(self.id)
+            t.column(self.json)
+            t.column(self.createTime, defaultValue: NSDate())
+            t.primaryKey(self.id)
         }
     }
     
@@ -104,14 +96,7 @@ public class YTKKeyValueStore_Swift: NSObject {
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
-        let sql = NSString(format: CLEAR_ALL_SQL, tableName)
-        var result : Bool?
-        dbQueue?.inDatabase({ (db) -> Void in
-            result = db.executeUpdate(sql, withArgumentsInArray:nil)
-        })
-        if !result!{
-            println("error, failed to clear table: \(tableName)")
-        }
+        db?[tableName].delete()?
     }
     
     //MARK: 对象
@@ -159,12 +144,14 @@ public class YTKKeyValueStore_Swift: NSObject {
             jsonString = object as? String
         }
         
-        let createTime = NSDate()
-        let sql = NSString(format: UPDATE_ITEM_SQL, tableName)
-        var result : Bool?
-        dbQueue?.inDatabase({ (db) -> Void in
-            result = db.executeUpdate(sql, withArgumentsInArray:[objectId,jsonString!,createTime])
-        })
+        if let table = db?[tableName]{
+            let filter =  table.filter(self.id == objectId).limit(1)
+            if filter.isEmpty{
+                table.insert(self.id <- objectId , self.json <- jsonString! , self.createTime <- NSDate())?
+            }else{
+                filter.update(self.json <- jsonString! , self.createTime <- NSDate() )?
+            }
+        }
        
     }
     
@@ -197,26 +184,20 @@ public class YTKKeyValueStore_Swift: NSObject {
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return nil
         }
-        let sql = NSString(format: QUERY_ITEM_SQL, tableName)
-        var json : String? = nil
-        var createdTime : NSDate? = nil
-        dbQueue?.inDatabase({ (db) -> Void in
-            var rs : FMResultSet = db.executeQuery(sql, withArgumentsInArray: [objectId])
-            if rs.next() {
-                json = rs.stringForColumn("json")
-                createdTime = rs.dateForColumn("createdTime")
+        if let table = db?[tableName]{
+            let filter =  table.filter(self.id == objectId).limit(1)
+            if filter.isEmpty{
+                return nil
+            }else{
+                var item = YTKKeyValueItem_Swift()
+                item.itemId = objectId
+                item.itemObject = YTKObject(value: filter.first![self.json] )
+                item.createdTime = filter.first!.get(self.createTime)
+                return item
             }
-            rs.close()
-        })
-        if json != nil{
-            var item = YTKKeyValueItem_Swift()
-            item.itemId = objectId
-            item.itemObject = YTKObject(value:  json! )
-            item.createdTime = createdTime
-            return item
-        }else{
-            return nil
+            
         }
+        return nil
     }
     
     
@@ -233,21 +214,19 @@ public class YTKKeyValueStore_Swift: NSObject {
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return nil
         }
-        let sql = NSString(format: SELECT_ALL_SQL, tableName)
         var result : [YTKKeyValueItem_Swift] = []
-        dbQueue?.inDatabase({ (db) -> Void in
-            var rs : FMResultSet = db.executeQuery(sql, withArgumentsInArray: nil)
-            while(rs.next()){
+        
+        if let table = db?[tableName]{
+            for row in table{
                 var item = YTKKeyValueItem_Swift()
-                item.itemId = rs.stringForColumn("id")
-                item.itemObject = YTKObject(value:rs.stringForColumn("json"))
-                item.createdTime = rs.dateForColumn("createdTime")
+                item.itemId = row[self.id]
+                item.itemObject = YTKObject(value:row[self.json])
+                item.createdTime = row.get(self.createTime)
                 result.append(item)
             }
-            rs.close()
-        })
-
+        }
         return result == [] ? nil : result
+
     }
     
     /**
@@ -260,13 +239,9 @@ public class YTKKeyValueStore_Swift: NSObject {
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
-        let sql = NSString(format: DELETE_ITEM_SQL, tableName)
-        var result : Bool?
-        dbQueue?.inDatabase({ (db) -> Void in
-            result = db.executeUpdate(sql, withArgumentsInArray:[objectId])
-        })
-        if !result! {
-            println("error, failed to delete time from table: \(tableName)")
+        
+        if let table = db?[tableName]{
+            table.filter(self.id == objectId).delete()?
         }
     }
     
@@ -276,27 +251,11 @@ public class YTKKeyValueStore_Swift: NSObject {
     :param: objectIdArray 索引数组
     :param: tableName     表单名
     */
-    public func deleteObjectsByIdArray(objectIdArray:[AnyObject]! , fromTable tableName : String!){
+    public func deleteObjectsByIdArray(objectIdArray:[String]! , fromTable tableName : String!){
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
-        var stringBuilder = ""
-        for objectId in objectIdArray{
-            var item = " '\(objectId)' "
-            if stringBuilder.isEmpty {
-                stringBuilder += "item"
-            }else{
-                stringBuilder += ",\(item)"
-            }
-        }
-        let sql = NSString(format: DELETE_ITEMS_SQL, tableName,stringBuilder)
-        var result : Bool?
-        dbQueue?.inDatabase({ (db) -> Void in
-            result = db.executeUpdate(sql, withArgumentsInArray:nil)
-        })
-        if !result!{
-            println("error, failed to delete items by ids from table: \(tableName)")
-        }
+        db?[tableName].filter(contains(objectIdArray, id)).delete()?
     }
     
     /**
@@ -309,25 +268,30 @@ public class YTKKeyValueStore_Swift: NSObject {
         if !YTKKeyValueStore_Swift.checkTableName(tableName){
             return
         }
-        let sql = NSString(format: DELETE_ITEMS_WITH_PREFIX_SQL, tableName)
-        let prefixArgument = "\(objectIdPrefix)%"
-        var result : Bool?
-        dbQueue?.inDatabase({ (db) -> Void in
-            result = db.executeUpdate(sql, withArgumentsInArray:[prefixArgument])
-        })
-        if !result!{
-            println("error, failed to delete items by id prefix from table: \(tableName)")
-        }
+        db?[tableName].filter( like("\(objectIdPrefix)%", self.id)).delete()?
     }
     
     /**
     关闭数据库
     */
     public func close(){
-        dbQueue?.close()
-        dbQueue = nil
+        self.db = nil
     }
     
+}
+
+//MAEK:- 实现Value协议 用于存储NSDate数据
+
+extension NSDate: Value {
+    public class var declaredDatatype: String {
+        return Int.declaredDatatype
+    }
+    public class func fromDatatypeValue(intValue: Int) -> Self {
+        return self(timeIntervalSince1970: NSTimeInterval(intValue))
+    }
+    public var datatypeValue: Int {
+        return Int(timeIntervalSince1970)
+    }
 }
 
 //MARK: - 数据库的对象类型
@@ -409,6 +373,7 @@ public struct YTKObject{
             }
         }
     }
+    
     
     
 }

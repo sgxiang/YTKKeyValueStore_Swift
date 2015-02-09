@@ -1,0 +1,8 @@
+language: objective-c
+env:
+  - BUILD_PLATFORM=iOS
+  - BUILD_PLATFORM=Mac
+before_install:
+  - gem install xcpretty --no-document
+script:
+  - make test
