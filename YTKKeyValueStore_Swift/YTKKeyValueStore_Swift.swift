@@ -31,7 +31,7 @@ public class YTKKeyValueStore_Swift: NSObject {
     
     private let id = Expression<String>("id")
     private let json = Expression<String>("json")
-    private let createTime = Expression<NSDate>("createTime")
+    private let createdTime = Expression<NSDate>("createdTime")
 
     /**
     检查名字是否合法
@@ -82,7 +82,7 @@ public class YTKKeyValueStore_Swift: NSObject {
         db?.create(table: db![tableName] , ifNotExists : true){t in
             t.column(self.id)
             t.column(self.json)
-            t.column(self.createTime, defaultValue: NSDate())
+            t.column(self.createdTime, defaultValue: NSDate())
             t.primaryKey(self.id)
         }
     }
@@ -147,9 +147,9 @@ public class YTKKeyValueStore_Swift: NSObject {
         if let table = db?[tableName]{
             let filter =  table.filter(self.id == objectId).limit(1)
             if filter.isEmpty{
-                table.insert(self.id <- objectId , self.json <- jsonString! , self.createTime <- NSDate())?
+                table.insert(self.id <- objectId , self.json <- jsonString! , self.createdTime <- NSDate())?
             }else{
-                filter.update(self.json <- jsonString! , self.createTime <- NSDate() )?
+                filter.update(self.json <- jsonString! , self.createdTime <- NSDate() )?
             }
         }
        
@@ -192,7 +192,7 @@ public class YTKKeyValueStore_Swift: NSObject {
                 var item = YTKKeyValueItem_Swift()
                 item.itemId = objectId
                 item.itemObject = YTKObject(value: filter.first![self.json] )
-                item.createdTime = filter.first!.get(self.createTime)
+                item.createdTime = filter.first!.get(self.createdTime)
                 return item
             }
             
@@ -221,7 +221,7 @@ public class YTKKeyValueStore_Swift: NSObject {
                 var item = YTKKeyValueItem_Swift()
                 item.itemId = row[self.id]
                 item.itemObject = YTKObject(value:row[self.json])
-                item.createdTime = row.get(self.createTime)
+                item.createdTime = row.get(self.createdTime)
                 result.append(item)
             }
         }
