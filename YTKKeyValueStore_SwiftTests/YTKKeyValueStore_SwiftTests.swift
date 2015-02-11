@@ -10,23 +10,26 @@ import UIKit
 import XCTest
 import YTKKeyValueStore_Swift
 
-class YTKKeyValueStore_SwiftTests: XCTestCase {
+class YTKKeyValueStore_SwiftTests : XCTestCase {
     
-    private var _store : YTKKeyValueStore_Swift?
-    private var _tableName : String?
+    private var _store : YTKKeyValueStore!
+    private var _table : YTKTable!
     
     override func setUp() {
         super.setUp()
-        _tableName = "test_table"
-        _store = YTKKeyValueStore_Swift()
-        _store?.createTable(tableName: _tableName!)
-        _store?.clearTable(tableName: _tableName!)
+        _store = YTKKeyValueStore("db_test")
+        let success = _store.createTable("test_table")
+        if success{
+            _table = _store["test_table"]
+            _table.delete()
+        }else{
+            XCTAssertFalse(true)
+        }
     }
     
     override func tearDown() {
-        _store?.clearTable(tableName: _tableName)
-        _store?.close()
-        _store = nil
+        _table.delete()
+        _store.dropTable("test_table")
         super.tearDown()
     }
     
@@ -37,39 +40,39 @@ class YTKKeyValueStore_SwiftTests: XCTestCase {
         let num2 = 1.3
         let user : Dictionary<String,AnyObject> = ["id":1 , "name" : "tangqiao" , "age" : 30]
         
-        _store?.putObject(str, withId: "str", intoTable: _tableName)
-        _store?.putObject(num1, withId: "num1", intoTable: _tableName)
-        _store?.putObject(num2, withId: "num2", intoTable: _tableName)
-        _store?.putObject(user, withId: "user", intoTable: _tableName)
+        _table.put("str" <- (str as NSString) )
+        _table.put("num1" <- (num1 as NSNumber))
+        _table.put("num2" <- (num2 as NSNumber))
+        _table.put("user" <- (user as NSDictionary))
         
         
-        if let result =  _store?.getObjectById("str", fromTable: _tableName)?.stringValue{
+        if let result =  _table.get("str")?.stringValue{
             XCTAssertEqual(str, result)
         }else{
             XCTAssertFalse(true)
         }
         
-        if let result = _store?.getObjectById("num1", fromTable: _tableName)?.numberValue{
+        if let result =  _table.get("num1")?.numberValue{
             XCTAssertEqual(num1, result)
         }else{
             XCTAssertFalse(true)
         }
         
-        if let result = _store?.getObjectById("num2", fromTable: _tableName)?.numberValue{
+        if let result =  _table.get("num2")?.numberValue{
             XCTAssertEqual(num2, result)
         }else{
             XCTAssertFalse(true)
         }
         
-        if let result = _store?.getObjectById("user", fromTable: _tableName)?.dictionaryValue{
-            XCTAssertEqual(user["id"] as Int, result["id"] as Int)
-            XCTAssertEqual(user["name"] as String, result["name"] as String)
-            XCTAssertEqual(user["age"] as Int, result["age"] as Int)
+        if let result =  _table.get("user")?.dictionaryValue{
+            XCTAssertEqual(user["id"] as! Int, result["id"] as! Int)
+            XCTAssertEqual(user["name"] as! String, result["name"] as! String)
+            XCTAssertEqual(user["age"] as! Int, result["age"] as! Int)
         }else{
             XCTAssertFalse(true)
         }
         
-        if let result = _store?.getObjectById("user1", fromTable: _tableName)?.dictionaryValue{
+        if let result =  _table.get("user!")?.dictionaryValue{
             XCTAssertFalse(true)
         }else{
             XCTAssertTrue(true)
