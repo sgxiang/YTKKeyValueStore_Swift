@@ -35,30 +35,16 @@ public struct YTKTable{
         return true
     }
     
-    public func delete( like : Bool = false , _ objectIds : String... ) -> Int?{
-        
-        if objectIds.count == 0{
-            return self.query?.delete()
-        }else if objectIds.count == 1{
-            if like{
-                return self.query?.filter( SQLite.like("\(objectIds[0])%", ID) ).delete()
-            }else{
-                return self.query?.filter( ID == objectIds[0] ).delete()
-            }
-        }else{
-            if like{
-                var change : Int?
-                for id in objectIds{
-                    if let c = self.query?.filter( SQLite.like("\(id)",ID) ).delete(){
-                        change = change == nil ? c : change! + c
-                    }
-                }
-                return change
-            }else{
-                return self.query?.filter( contains(objectIds, ID) ).delete()
-            }
-        }
-        
+    public func clear()->Int?{
+        return self.query?.delete()
+    }
+    
+    public func delete(objectIds : String... ) -> Int?{
+        return self.query?.filter( contains(objectIds, ID) ).delete()
+    }
+    
+    public func deletePreLike(objectId : String!) -> Int?{
+        return self.query?.filter( SQLite.like("\(objectId)%", ID) ).delete()
     }
     
     //MARK: 对象

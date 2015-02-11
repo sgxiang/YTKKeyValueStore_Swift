@@ -1,73 +1,96 @@
-YTKKeyValueStore_Swfit
+YTKKeyValueStore
 ==========
 
-`YTKKeyValueStore`的swift版本
-
-源oc版地址：https://github.com/yuantiku/YTKKeyValueStore
+objc version ：https://github.com/yuantiku/YTKKeyValueStore
 
 ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
 
 
-## 要求
+## Requirements
 
 - iOS 7.0+ 
 - Xcode 6.3
 
-## 使用说明
 
+## Usage 
+
+```swift
+#import YTKKeyValueStore
+```
 
 ### YTKKeyValueStore
 
 ```swift
-// 打开名为test.db的数据库，如果该文件不存在，则创新一个新的。
-var store = YTKKeyValueStore("test.db")
+var store = YTKKeyValueStore("test.db")   // create or open the key-value store
 
-// 创建table
-store.createTable("User")
+store.createTable("User")    // create table
 
-// 获取一个table对象 -> YTKTable
-let table = store["User"]
+let table = store["User"]      // get table (YTKTable)
 
-// 丢弃一个table 
-store.deopTable("User")
+store.deopTable("User")    // drop table
 ```
 
 ### YTKTable
 
 ```swift
-// 判断table是否存在
 let isExists = table.isExists
 
-// 写入数据 【支持字符串，数字，字典，数组】
-table.put( "name" <- ("sgxiang" as NSString) )
+table.put( "name" <- ("sgxiang" as NSString) )     // put value("sgxiang") for key("name") into table , support sgring,number,dictionary,array
 
-// 获取数据
-let objct = table.get("name")    // YTKObject?
-let item = table.getItem("name")   // YTKItem?
-let allItems = table.getAllItems()  // [YTKItem]?
 
-// 删除数据
-table.delete()  //删除所有数据
-table.delete(like:false , name)   //删除键为name的数据
-table.delete(like:false , name , name2)   //删除键为name name2的数据 
-table.delete(like:true , name)   //删除键前缀为name的数据
-table.delete(like:true , name , name2)   //删除键前缀为name name2的数据  
+let objct = table.get("name")    // get object with key , return YTKObject?
+let item = table.getItem("name")   // get item with key ,return YTKItem?
+let allItems = table.getAllItems()  // get all item with key , return  [YTKItem]?
+
+
+table.clear()  // clear table
+table.delete("name1","name2")   // delete row where key == "name1" and "name2"
+table.deletePreLike("name")   // delete row where key pre like "name"
 ```
 
 ### YTKItem
 
-有三个属性，分别保存数据的ID，数据的值，数据创建的时间
-
+```
+itemId       :   itemKey
+itemObject   :   itemValue , is json string
+createdTime  :   item created time
+```
 ### YTKObject
 
 ```
-objectValue       读取出AnyObject?的类型
-stringValue       读取出String?的类型
-numberValue       读取出NSNumber?的类型
-dictionaryValue   读取出Dictionary<String , AnyObject>?的类型
-arrayValue        读取出Array<AnyObject>?的类型
+objectValue       :     return  AnyObject?
+stringValue       :     return  String?
+numberValue       :     return  NSNumber?
+dictionaryValue   :     return  Dictionary<String , AnyObject>?
+arrayValue        :     return  Array<AnyObject>?
 ```
 
+## Installation
+
+- Add YTKKeyValueStore as a submodule by opening the Terminal, cd-ing into your top-level project directory, and entering the following command:
+
+```
+$ git submodule add https://github.com/Sgxiang/YTKKeyValueStore_Swift.git
+```
+- Open the YTKKeyValueStore folder, and drag YTKKeyValueStore.xcodeproj into the file navigator of your app project.
+
+- In Xcode, navigate to the target configuration window by clicking on the blue project icon, and selecting the application target under the "Targets" heading in the sidebar.
+
+- Ensure that the deployment target of YTKKeyValueStore.framework matches that of the application target.
+
+- In the tab bar at the top of that window, open the "Build Phases" panel.
+Expand the "Target Dependencies" group, and add YTKKeyValueStore.framework.
+
+- Click on the + button at the top left of the panel and select "New Copy Files Phase". Rename this new phase to "Copy Frameworks", set the "Destination" to "Frameworks", and add YTKKeyValueStore.framework.
 
 
+## Communication
+
+- Found a bug or have a feature request? [Open an issue](https://github.com/sgxiang/YTKKeyValueStore_Swift/issues).
+
+- Want to contribute? [Submit a pull request](https://github.com/sgxiang/YTKKeyValueStore_Swift/pulls).
+
+## Author
+
+- [sgxiang](https://twitter.com/sgxiang1992)
 
