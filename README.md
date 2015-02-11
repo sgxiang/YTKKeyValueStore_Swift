@@ -35,7 +35,7 @@ store.deopTable("User")    // drop table
 ```swift
 let isExists = table.isExists
 
-table.put( "name" <- ("sgxiang" as NSString) )     // put value("sgxiang") for key("name") into table , support sgring,number,dictionary,array
+table.put( "name" <- ("sgxiang" as NSString) )     // put value("sgxiang") for key("name") into table , support string,number,dictionary,array
 
 
 let objct = table.get("name")    // get object with key , return YTKObject?
@@ -67,6 +67,8 @@ arrayValue        :     return  Array<AnyObject>?
 
 ## Installation
 
+### Embedded Framework
+
 - Add YTKKeyValueStore as a submodule by opening the Terminal, cd-ing into your top-level project directory, and entering the following command:
 
 ```
@@ -83,6 +85,9 @@ Expand the "Target Dependencies" group, and add YTKKeyValueStore.framework.
 
 - Click on the + button at the top left of the panel and select "New Copy Files Phase". Rename this new phase to "Copy Frameworks", set the "Destination" to "Frameworks", and add YTKKeyValueStore.framework.
 
+### Source File
+
+Copy source file into your project
 
 ## Communication
 
