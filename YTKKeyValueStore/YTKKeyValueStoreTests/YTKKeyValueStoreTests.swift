@@ -17,22 +17,21 @@ class YTKKeyValueStoreTests : XCTestCase {
     
     override func setUp() {
         super.setUp()
-        _store = YTKKeyValueStore("db_test")
+        _store = YTKKeyValueStore("db_test.db")
         let success = _store.createTable("test_table")
         if success{
             _table = _store["test_table"]
-            _table.delete()
         }else{
             XCTAssertFalse(true)
         }
     }
     
     override func tearDown() {
-        _table.delete()
+        _table.clear()
         _store.dropTable("test_table")
         super.tearDown()
     }
-    
+
     func testSave(){
         
         let str = "abc"
