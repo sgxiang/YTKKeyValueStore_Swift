@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct YTKKeyValueItem{
+public struct YTKItem{
     public var itemId : String?
     public var itemObject : YTKObject?
     public var createdTime : NSDate?

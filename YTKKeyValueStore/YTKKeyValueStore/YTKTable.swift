@@ -110,13 +110,13 @@ public struct YTKTable{
         return nil
     }
     
-    public func getItem(objectId :String!)->YTKKeyValueItem?{
+    public func getItem(objectId :String!)->YTKItem?{
         
         if let filter =  self.query?.filter(ID == objectId).limit(1){
             if filter.isEmpty{
                 return nil
             }else{
-                var item = YTKKeyValueItem()
+                var item = YTKItem()
                 item.itemId = objectId
                 item.itemObject = YTKObject(value: filter.first![JSON] )
                 item.createdTime = filter.first!.get(CREATEDTIME)
@@ -126,13 +126,13 @@ public struct YTKTable{
         return nil
     }
     
-    public func getAllItems()->[YTKKeyValueItem]?{
+    public func getAllItems()->[YTKItem]?{
         
-        var result : [YTKKeyValueItem] = []
+        var result : [YTKItem] = []
         
         if let table = self.query{
             for row in table{
-                var item = YTKKeyValueItem()
+                var item = YTKItem()
                 item.itemId = row[ID]
                 item.itemObject = YTKObject(value:row[JSON])
                 item.createdTime = row.get(CREATEDTIME)
