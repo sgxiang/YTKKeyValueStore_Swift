@@ -10,9 +10,14 @@
 		1A5891AB1A8B4F6200155614 /* YTKKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A5891AA1A8B4F6200155614 /* YTKKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1A5891B11A8B4F6300155614 /* YTKKeyValueStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5891A51A8B4F6200155614 /* YTKKeyValueStore.framework */; };
 		1A5891B81A8B4F6300155614 /* YTKKeyValueStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891B71A8B4F6300155614 /* YTKKeyValueStoreTests.swift */; };
-		1A5891C21A8B4F7A00155614 /* YTKKeyValueStore_Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891C11A8B4F7A00155614 /* YTKKeyValueStore_Swift.swift */; };
+		1A5891C21A8B4F7A00155614 /* YTKKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891C11A8B4F7A00155614 /* YTKKeyValueStore.swift */; };
 		1A5891D41A8B4FE400155614 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5891CB1A8B4FC100155614 /* SQLite.framework */; };
 		1A5891D61A8B4FEE00155614 /* SQLite.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1A5891CB1A8B4FC100155614 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1A5891EC1A8B5DB600155614 /* YTKObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891EB1A8B5DB600155614 /* YTKObject.swift */; };
+		1A5891F11A8B5DEE00155614 /* YTKSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891F01A8B5DEE00155614 /* YTKSetter.swift */; };
+		1A5891F31A8B5E1B00155614 /* YTKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891F21A8B5E1B00155614 /* YTKTable.swift */; };
+		1A5891F51A8B5E5D00155614 /* YTKConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891F41A8B5E5D00155614 /* YTKConfig.swift */; };
+		1A5891F71A8B5EBE00155614 /* YTKItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891F61A8B5EBE00155614 /* YTKItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,8 +85,13 @@
 		1A5891B01A8B4F6300155614 /* YTKKeyValueStoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YTKKeyValueStoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A5891B61A8B4F6300155614 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A5891B71A8B4F6300155614 /* YTKKeyValueStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTKKeyValueStoreTests.swift; sourceTree = "<group>"; };
-		1A5891C11A8B4F7A00155614 /* YTKKeyValueStore_Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKKeyValueStore_Swift.swift; sourceTree = "<group>"; };
+		1A5891C11A8B4F7A00155614 /* YTKKeyValueStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKKeyValueStore.swift; sourceTree = "<group>"; };
 		1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = ../../SQLite.swift/SQLite.xcodeproj; sourceTree = "<group>"; };
+		1A5891EB1A8B5DB600155614 /* YTKObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKObject.swift; sourceTree = "<group>"; };
+		1A5891F01A8B5DEE00155614 /* YTKSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKSetter.swift; sourceTree = "<group>"; };
+		1A5891F21A8B5E1B00155614 /* YTKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKTable.swift; sourceTree = "<group>"; };
+		1A5891F41A8B5E5D00155614 /* YTKConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKConfig.swift; sourceTree = "<group>"; };
+		1A5891F61A8B5EBE00155614 /* YTKItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +136,12 @@
 			isa = PBXGroup;
 			children = (
 				1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */,
-				1A5891C11A8B4F7A00155614 /* YTKKeyValueStore_Swift.swift */,
+				1A5891C11A8B4F7A00155614 /* YTKKeyValueStore.swift */,
+				1A5891F21A8B5E1B00155614 /* YTKTable.swift */,
+				1A5891F01A8B5DEE00155614 /* YTKSetter.swift */,
+				1A5891F61A8B5EBE00155614 /* YTKItem.swift */,
+				1A5891EB1A8B5DB600155614 /* YTKObject.swift */,
+				1A5891F41A8B5E5D00155614 /* YTKConfig.swift */,
 				1A5891AA1A8B4F6200155614 /* YTKKeyValueStore.h */,
 				1A5891A81A8B4F6200155614 /* Supporting Files */,
 			);
@@ -315,7 +330,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A5891C21A8B4F7A00155614 /* YTKKeyValueStore_Swift.swift in Sources */,
+				1A5891C21A8B4F7A00155614 /* YTKKeyValueStore.swift in Sources */,
+				1A5891F31A8B5E1B00155614 /* YTKTable.swift in Sources */,
+				1A5891F51A8B5E5D00155614 /* YTKConfig.swift in Sources */,
+				1A5891F11A8B5DEE00155614 /* YTKSetter.swift in Sources */,
+				1A5891EC1A8B5DB600155614 /* YTKObject.swift in Sources */,
+				1A5891F71A8B5EBE00155614 /* YTKItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,7 +399,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -420,7 +440,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
