@@ -8,9 +8,9 @@
 
 import UIKit
 import XCTest
-import YTKKeyValueStore_Swift
+import YTKKeyValueStore
 
-class YTKKeyValueStore_SwiftTests : XCTestCase {
+class YTKKeyValueStoreTests : XCTestCase {
     
     private var _store : YTKKeyValueStore!
     private var _table : YTKTable!
@@ -79,5 +79,5 @@ class YTKKeyValueStore_SwiftTests : XCTestCase {
         }
         
     }
-   
+    
 }
