@@ -81,7 +81,7 @@ public struct YTKTable{
         
         if let filter =  self.query?.filter(ID == set.objectId).limit(1){
             if filter.isEmpty{
-                return filter.insert(ID <- set.objectId , JSON <- jsonString! , CREATEDTIME <- NSDate())
+                return self.query?.insert(ID <- set.objectId , JSON <- jsonString! , CREATEDTIME <- NSDate())
             }else{
                 return filter.update(JSON <- jsonString! , CREATEDTIME <- NSDate() )
             }
