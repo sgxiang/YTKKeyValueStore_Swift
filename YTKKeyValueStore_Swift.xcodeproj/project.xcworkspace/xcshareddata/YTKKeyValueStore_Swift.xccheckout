@@ -20,7 +20,7 @@
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>3AE8ED2E684071AF4FB151FA51BF266B82FF45BD</key>
-		<string>../../SQLite.swift/</string>
+		<string>../../SQLite.swift</string>
 		<key>4A981CE5EBB25D0F76C1CD8B5935247ECC95C653</key>
 		<string>../..</string>
 	</dict>
