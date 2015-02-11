@@ -1,7 +1,0 @@
-# Xcode
-build/
-timeline.xctimeline
-xcuserdata/
-
-# System
-.DS_Store

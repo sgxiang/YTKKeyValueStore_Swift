@@ -16,16 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        let tableName = "user_table_swift"
-        var store = YTKKeyValueStore_Swift(dbName: "test_siwft.db")
-        store.createTable(tableName: tableName)
-        store.clearTable(tableName: tableName)
+        let store = YTKKeyValueStore("test.db")
+        store.createTable("user")
+        
         let key = "1"
         let user = ["id":1 , "name" : "tangqiao" , "age" : 30]
-        store.putObject(user, withId: key, intoTable: tableName)
         
-        if let queryUser: AnyObject = store.getObjectById(key, fromTable: tableName)?.dictionaryValue{
-            println("[swift] query data result: \(queryUser)")
+        let userTable = store["user"]
+        
+        println("user table isExists :  \(userTable.isExists)")
+        
+        userTable.delete()
+        
+        userTable.put( key <- (user as NSDictionary)  )
+        
+        if let queryUser = userTable.get(key)?.dictionaryValue{
+            println("query data result : \(queryUser)")
         }
         
         return true
