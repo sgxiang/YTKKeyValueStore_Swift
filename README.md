@@ -27,7 +27,7 @@ store.createTable("User")    // create table
 
 let table = store["User"]      // get table (YTKTable)
 
-store.deopTable("User")    // drop table
+store.dropTable("User")    // drop table
 ```
 
 ### YTKTable
