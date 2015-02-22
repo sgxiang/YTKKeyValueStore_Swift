@@ -15,7 +15,7 @@ objc version ：https://github.com/yuantiku/YTKKeyValueStore
 ## Usage 
 
 ```swift
-#import YTKKeyValueStore
+import YTKKeyValueStore
 ```
 
 ### YTKKeyValueStore
