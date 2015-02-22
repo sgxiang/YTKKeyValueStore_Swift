@@ -11,7 +11,7 @@ import UIKit
 public struct YTKSetter {
     internal var objectId : String!
     internal var object : AnyObject!
-    internal init(_ id : String!, _ object : AnyObject!){
+    public init(_ id : String!, _ object : AnyObject!){
         self.objectId = id
         self.object = object
     }
