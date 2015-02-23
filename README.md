@@ -15,7 +15,7 @@ objc version ：https://github.com/yuantiku/YTKKeyValueStore
 ## Usage 
 
 ```swift
-#import YTKKeyValueStore
+import YTKKeyValueStore
 ```
 
 ### YTKKeyValueStore
@@ -27,7 +27,7 @@ store.createTable("User")    // create table
 
 let table = store["User"]      // get table (YTKTable)
 
-store.deopTable("User")    // drop table
+store.dropTable("User")    // drop table
 ```
 
 ### YTKTable
