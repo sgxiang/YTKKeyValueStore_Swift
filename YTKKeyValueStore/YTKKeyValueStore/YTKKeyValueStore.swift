@@ -13,8 +13,9 @@ public class YTKKeyValueStore : NSObject{
     
     private var db : Database?
     
-    public init(_ dbName : String! = DEFAULT_DB_NAME){
-        let dbPath = PATH_OF_DOCUMENT.stringByAppendingPathComponent(dbName)
+    public init(_ dbName : String! = DEFAULT_DB_NAME , path : String! = PATH_OF_DOCUMENT){
+        let dbPath = path.stringByAppendingPathComponent(dbName)
+        printYTKLog("dbPath = \(path)")
         db = Database(dbPath)
     }
     
@@ -32,10 +33,9 @@ public class YTKKeyValueStore : NSObject{
             t.column(CREATEDTIME, defaultValue: NSDate())
             t.primaryKey(ID)
         }) where !statement.failed{
-            printYTKLog("创建talbe : \(tableName) 成功")
             return true
         }else{
-            printYTKLog("创建talbe : \(tableName) 失败")
+            printYTKLog("failed to create table : \(tableName)")
             return false
         }
     }
@@ -46,10 +46,9 @@ public class YTKKeyValueStore : NSObject{
         }
         
         if let statement = (db?.drop(table: db![tableName], ifExists: false)) where !statement.failed{
-            printYTKLog("删除talbe : \(tableName) 成功")
             return true
         }else{
-            printYTKLog("删除talbe : \(tableName) 失败")
+            printYTKLog("failed to drop table : \(tableName)")
             return false
         }
         
@@ -58,8 +57,6 @@ public class YTKKeyValueStore : NSObject{
     
 }
 
-
-//MAEK:- 实现Value协议 用于存储NSDate数据
 
 extension NSDate: Value {
     public class var declaredDatatype: String {

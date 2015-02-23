@@ -12,23 +12,29 @@ import SQLite
 
 public struct YTKTable{
     
+    public let name : String?
+    
     public var isExists : Bool {
         get{
             return self.query != nil
         }
     }
     
-    internal var query : Query?
+    internal let query : Query?
     
     internal init(db : Database?, _ tableName : String!){
         if YTKTable.checkTableName(tableName){
+            self.name = tableName
             self.query = db?[tableName]
+        }else{
+            self.name = nil
+            self.query = nil
         }
     }
     
     internal static func checkTableName(tableName : String!)->Bool{
         if find(tableName, " ") != nil{
-            printYTKLog("表名出错")
+            printYTKLog("table name : \(tableName) format error")
             return false
         }
         
@@ -36,18 +42,23 @@ public struct YTKTable{
     }
     
     public func clear()->Int?{
-        return self.query?.delete()
+        let changes = self.query?.delete()
+        printYTKLog("table : \(self.name)  number of deleted rows : \(changes)")
+        return changes
     }
     
     public func delete(objectIds : String... ) -> Int?{
-        return self.query?.filter( contains(objectIds, ID) ).delete()
+        let changes = self.query?.filter( contains(objectIds, ID) ).delete()
+        printYTKLog("table : \(self.name)  number of deleted rows : \(changes)")
+        return changes
     }
     
     public func deletePreLike(objectId : String!) -> Int?{
-        return self.query?.filter( SQLite.like("\(objectId)%", ID) ).delete()
+        let changes = self.query?.filter( SQLite.like("\(objectId)%", ID) ).delete()
+        printYTKLog("table : \(self.name)  number of deleted rows : \(changes)")
+        return changes
     }
     
-    //MARK: 对象
     private enum YTKKeyValueType{
         case String,Number,Object
     }
@@ -63,30 +74,28 @@ public struct YTKTable{
     
     public func put( set :  YTKSetter )->Int?{
         
-        let type = YTKTable.valueWithType(set.object)
-        var jsonString : String?
+        var jsonString : String? = set.jsonString
         
-        if type == .Number || type == .Object{
-            let sqlObject: AnyObject! = type == .Number ? [set.object] : set.object
-            var error : NSError?
-            let data = NSJSONSerialization.dataWithJSONObject(sqlObject, options: NSJSONWritingOptions(0), error: &error)
-            if error != nil {
-                printYTKLog("插入数据出错: json解析出错")
-                return nil
-            }
-            jsonString = NSString(data: data!, encoding: NSUTF8StringEncoding) as? String
-        }else{
-            jsonString = set.object as? String
+        if jsonString == nil{
+            printYTKLog("no support db value")
+            return nil
         }
         
+        printYTKLog("[put] id : \(set.objectId)  jsonString : \(set.jsonString!)")
+        
+        var changes : Int?
         if let filter =  self.query?.filter(ID == set.objectId).limit(1){
             if filter.isEmpty{
-                return self.query?.insert(ID <- set.objectId , JSON <- jsonString! , CREATEDTIME <- NSDate())
+                changes = self.query?.insert(ID <- set.objectId , JSON <- jsonString! , CREATEDTIME <- NSDate())
             }else{
-                return filter.update(JSON <- jsonString! , CREATEDTIME <- NSDate() )
+                changes = filter.update(JSON <- jsonString! , CREATEDTIME <- NSDate() )
             }
         }
-        return nil
+        
+        if changes == nil{
+            printYTKLog("failed to insert/replace into table : \(self.name)")
+        }
+        return changes
     }
     
     public func get( objectId : String! ) -> YTKObject?{

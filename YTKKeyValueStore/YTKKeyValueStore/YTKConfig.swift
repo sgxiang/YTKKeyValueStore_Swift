@@ -20,7 +20,6 @@ internal func printYTKLog<T>(message: T,
     }
 }
 
-//文件夹路径
 internal let PATH_OF_DOCUMENT : String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
 
 internal let DEFAULT_DB_NAME = "database_swift.sqlite"
