@@ -60,13 +60,13 @@ public class YTKKeyValueStore : NSObject{
 
 extension NSDate: Value {
     public class var declaredDatatype: String {
-        return Int.declaredDatatype
+        return Int64.declaredDatatype
     }
-    public class func fromDatatypeValue(intValue: Int) -> Self {
+    public class func fromDatatypeValue(intValue: Int64) -> Self {
         return self(timeIntervalSince1970: NSTimeInterval(intValue))
     }
-    public var datatypeValue: Int {
-        return Int(timeIntervalSince1970)
+    public var datatypeValue: Int64 {
+        return Int64(timeIntervalSince1970)
     }
 }
 

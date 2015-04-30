@@ -72,7 +72,7 @@ public struct YTKTable{
         }
     }
     
-    public func put( set :  YTKSetter )->Int?{
+    public func put( set :  YTKSetter )->Int64?{
         
         var jsonString : String? = set.jsonString
         
@@ -83,12 +83,13 @@ public struct YTKTable{
         
         printYTKLog("[put] id : \(set.objectId)  jsonString : \(set.jsonString!)")
         
-        var changes : Int?
+        var changes : Int64?
         if let filter =  self.query?.filter(ID == set.objectId).limit(1){
             if filter.isEmpty{
                 changes = self.query?.insert(ID <- set.objectId , JSON <- jsonString! , CREATEDTIME <- NSDate())
             }else{
-                changes = filter.update(JSON <- jsonString! , CREATEDTIME <- NSDate() )
+                let v : Int? = filter.update(JSON <- jsonString! , CREATEDTIME <- NSDate())
+                changes = v != nil ? Int64(v!) : nil
             }
         }
         
@@ -116,6 +117,7 @@ public struct YTKTable{
                 item.itemObject = YTKObject(value: filter.first![JSON] )
                 item.createdTime = filter.first!.get(CREATEDTIME)
                 return item
+                
             }
         }
         return nil
