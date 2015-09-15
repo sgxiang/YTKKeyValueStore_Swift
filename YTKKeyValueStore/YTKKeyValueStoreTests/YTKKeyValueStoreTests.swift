@@ -48,10 +48,10 @@ class YTKKeyValueStoreTests : XCTestCase {
         let num2 = 1.3
         let user : Dictionary<String,AnyObject> = ["id":1 , "name" : "tangqiao" , "age" : 30]
         
-        try! _table.put("str" <- (str as NSString) )
-        try! _table.put("num1" <- (num1 as NSNumber))
-        try! _table.put("num2" <- (num2 as NSNumber))
-        try! _table.put("user" <- (user as NSDictionary))
+        try! _table.put("str" <- str )
+        try! _table.put("num1" <- num1)
+        try! _table.put("num2" <- num2)
+        try! _table.put("user" <- user)
         
         
         if let result =  _table.get("str")?.stringValue{

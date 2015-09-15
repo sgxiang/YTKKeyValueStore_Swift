@@ -10,8 +10,8 @@ import UIKit
 
 public struct YTKSetter {
     internal var objectId : String!
-    private var object : AnyObject!
-    public init(_ id : String!, _ object : AnyObject!){
+    private var object : Any!
+    public init(_ id : String!, _ object : Any!){
         self.objectId = id
         self.object = object
     }
@@ -19,18 +19,19 @@ public struct YTKSetter {
     internal var jsonString : String?{
         get{
             
-            if let string = self.object as? String{
-                return string
+            if object is String{
+                return (object as! String)
             }else{
                 
                 var sqlObject : AnyObject?
-
+                
                 if let number = self.object as? NSNumber{
                     sqlObject = [number]
-                }else if (self.object as? Array<AnyObject>) != nil || (self.object as? Dictionary<String,AnyObject>) != nil {
-                    sqlObject = self.object
-                }
-                else{
+                }else if let arrayObject = self.object as? [AnyObject]{
+                    sqlObject = arrayObject
+                }else if let dictionaryObject = self.object as? Dictionary<String,AnyObject>{
+                    sqlObject = dictionaryObject
+                }else{
                     return nil
                 }
                 
@@ -49,6 +50,6 @@ public struct YTKSetter {
 }
 
 infix operator <- { associativity left precedence 140 }
-public func <- (objectId: String!, object: AnyObject!) -> YTKSetter{
+public func <- (objectId: String!, object: Any!) -> YTKSetter{
     return YTKSetter(objectId , object)
 }
