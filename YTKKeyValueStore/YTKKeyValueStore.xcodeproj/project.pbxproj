@@ -18,6 +18,7 @@
 		1A5891F31A8B5E1B00155614 /* YTKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891F21A8B5E1B00155614 /* YTKTable.swift */; };
 		1A5891F51A8B5E5D00155614 /* YTKConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891F41A8B5E5D00155614 /* YTKConfig.swift */; };
 		1A5891F71A8B5EBE00155614 /* YTKItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891F61A8B5EBE00155614 /* YTKItem.swift */; };
+		1A81A1671BA80B0400A53DE1 /* YTKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A81A1661BA80B0400A53DE1 /* YTKError.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,8 +61,36 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = DC3773F219C8CBB3004FCF85;
+			remoteGlobalIDString = DC2B29E11B26F718001C60EA;
 			remoteInfo = "SQLite iOS";
+		};
+		1A81A15E1BA7F48200A53DE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCE7BB7A1B7434F90040D364;
+			remoteInfo = "SQLiteCipher iOS";
+		};
+		1A81A1601BA7F48200A53DE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCE7BB831B7434F90040D364;
+			remoteInfo = "SQLiteCipher iOS Tests";
+		};
+		1A81A1621BA7F48200A53DE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCE7BBB01B7438610040D364;
+			remoteInfo = "SQLiteCipher Mac";
+		};
+		1A81A1641BA7F48200A53DE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCE7BBB91B7438620040D364;
+			remoteInfo = "SQLiteCipher Mac Tests";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -92,6 +121,7 @@
 		1A5891F21A8B5E1B00155614 /* YTKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKTable.swift; sourceTree = "<group>"; };
 		1A5891F41A8B5E5D00155614 /* YTKConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKConfig.swift; sourceTree = "<group>"; };
 		1A5891F61A8B5EBE00155614 /* YTKItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKItem.swift; sourceTree = "<group>"; };
+		1A81A1661BA80B0400A53DE1 /* YTKError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +172,7 @@
 				1A5891F61A8B5EBE00155614 /* YTKItem.swift */,
 				1A5891EB1A8B5DB600155614 /* YTKObject.swift */,
 				1A5891F41A8B5E5D00155614 /* YTKConfig.swift */,
+				1A81A1661BA80B0400A53DE1 /* YTKError.swift */,
 				1A5891AA1A8B4F6200155614 /* YTKKeyValueStore.h */,
 				1A5891A81A8B4F6200155614 /* Supporting Files */,
 			);
@@ -180,6 +211,10 @@
 				1A5891CD1A8B4FC100155614 /* SQLite iOS Tests.xctest */,
 				1A5891CF1A8B4FC100155614 /* SQLite.framework */,
 				1A5891D11A8B4FC100155614 /* SQLite Mac Tests.xctest */,
+				1A81A15F1BA7F48200A53DE1 /* SQLiteCipher.framework */,
+				1A81A1611BA7F48200A53DE1 /* SQLiteCipher iOS Tests.xctest */,
+				1A81A1631BA7F48200A53DE1 /* SQLiteCipher.framework */,
+				1A81A1651BA7F48200A53DE1 /* SQLiteCipher Mac Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -242,7 +277,8 @@
 		1A58919C1A8B4F6200155614 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = sgxiang;
 				TargetAttributes = {
 					1A5891A41A8B4F6200155614 = {
@@ -306,6 +342,34 @@
 			remoteRef = 1A5891D01A8B4FC100155614 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		1A81A15F1BA7F48200A53DE1 /* SQLiteCipher.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLiteCipher.framework;
+			remoteRef = 1A81A15E1BA7F48200A53DE1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1A81A1611BA7F48200A53DE1 /* SQLiteCipher iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SQLiteCipher iOS Tests.xctest";
+			remoteRef = 1A81A1601BA7F48200A53DE1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1A81A1631BA7F48200A53DE1 /* SQLiteCipher.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLiteCipher.framework;
+			remoteRef = 1A81A1621BA7F48200A53DE1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1A81A1651BA7F48200A53DE1 /* SQLiteCipher Mac Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SQLiteCipher Mac Tests.xctest";
+			remoteRef = 1A81A1641BA7F48200A53DE1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -331,6 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A5891C21A8B4F7A00155614 /* YTKKeyValueStore.swift in Sources */,
+				1A81A1671BA80B0400A53DE1 /* YTKError.swift in Sources */,
 				1A5891F31A8B5E1B00155614 /* YTKTable.swift in Sources */,
 				1A5891F51A8B5E5D00155614 /* YTKConfig.swift in Sources */,
 				1A5891F11A8B5DEE00155614 /* YTKSetter.swift in Sources */,
@@ -385,6 +450,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -399,7 +465,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -440,7 +506,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -460,7 +526,9 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = YTKKeyValueStore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sgxiang.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -477,7 +545,9 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = YTKKeyValueStore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sgxiang.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -496,6 +566,7 @@
 				);
 				INFOPLIST_FILE = YTKKeyValueStoreTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sgxiang.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -509,6 +580,7 @@
 				);
 				INFOPLIST_FILE = YTKKeyValueStoreTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sgxiang.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

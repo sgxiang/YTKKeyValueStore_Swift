@@ -34,18 +34,18 @@ public struct YTKObject{
                 return num
             }else{
                 
-                var error : NSError?
-                let result: AnyObject? = NSJSONSerialization.JSONObjectWithData(self.value!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.AllowFragments, error: &error)
-                if error != nil{
-                    printYTKLog("faild to get json data")
-                    return nil
-                }else{
+                do{
+                    let result: AnyObject? = try NSJSONSerialization.JSONObjectWithData(self.value!.dataUsingEncoding(NSUTF8StringEncoding)!, options: .AllowFragments)
                     if let num = result as? [NSNumber]{
                         return num[0]
                     }else{
                         return nil
                     }
+                }catch{
+                    print("faild to get json data")
+                    return nil
                 }
+                
             }
         }
         
@@ -55,17 +55,16 @@ public struct YTKObject{
         get{
             if self.value == nil { return nil}
             
-            var error : NSError?
-            let result: AnyObject? = NSJSONSerialization.JSONObjectWithData(self.value!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.AllowFragments, error: &error)
-            if error != nil{
-                printYTKLog("faild to get json data")
-                return nil
-            }else{
+            do{
+                let result: AnyObject? = try NSJSONSerialization.JSONObjectWithData(self.value!.dataUsingEncoding(NSUTF8StringEncoding)!, options: .AllowFragments)
                 if let dic = result as? Dictionary<String , AnyObject>{
                     return dic
                 }else{
                     return nil
                 }
+            }catch{
+                print("faild to get json data")
+                return nil
             }
             
         }
@@ -76,17 +75,16 @@ public struct YTKObject{
         get{
             if self.value == nil { return nil}
             
-            var error : NSError?
-            let result: AnyObject? = NSJSONSerialization.JSONObjectWithData(self.value!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.AllowFragments, error: &error)
-            if error != nil{
-                printYTKLog("faild to get json data")
-                return nil
-            }else{
+            do{
+                let result: AnyObject? = try NSJSONSerialization.JSONObjectWithData(self.value!.dataUsingEncoding(NSUTF8StringEncoding)!, options: .AllowFragments)
                 if let dic = result as? Array<AnyObject>{
                     return dic
                 }else{
                     return nil
                 }
+            }catch{
+                print("faild to get json data")
+                return nil
             }
         }
     }

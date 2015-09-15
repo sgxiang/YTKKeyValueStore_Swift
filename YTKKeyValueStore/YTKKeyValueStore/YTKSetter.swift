@@ -34,14 +34,13 @@ public struct YTKSetter {
                     return nil
                 }
                 
-                var error : NSError?
-                let data = NSJSONSerialization.dataWithJSONObject(sqlObject!, options: NSJSONWritingOptions(0), error: &error)
-                if error != nil {
-                    printYTKLog("faild to get json data")
+                do{
+                    let data = try NSJSONSerialization.dataWithJSONObject(sqlObject!, options: NSJSONWritingOptions(rawValue: 0))
+                    return NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+                }catch{
+                    print("faild to get json data")
                     return nil
                 }
-                
-                return NSString(data: data!, encoding: NSUTF8StringEncoding) as? String
 
             }
 

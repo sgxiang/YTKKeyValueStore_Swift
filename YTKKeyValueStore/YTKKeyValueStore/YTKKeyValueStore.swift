@@ -9,65 +9,63 @@
 import UIKit
 import SQLite
 
-public class YTKKeyValueStore : NSObject{
+public class YTKKeyValueStore{
     
-    private var db : Database?
+    private var db : Connection?
     
-    public init(_ dbName : String! = DEFAULT_DB_NAME , path : String! = PATH_OF_DOCUMENT){
-        let dbPath = path.stringByAppendingPathComponent(dbName)
-        printYTKLog("dbPath = \(path)")
-        db = Database(dbPath)
+    private init(dbPath : String!) {
+        db = try! Connection(dbPath)
+    }
+    
+    convenience public init(_ dbName : String! = DEFAULT_DB_NAME , path : String! = PATH_OF_DOCUMENT) throws{
+
+        self.init(dbPath:"\(path)/\(dbName)")
+        
+        guard db != nil else{
+            throw YTKError.ValueNoSupport
+        }
+
     }
     
     public subscript (tableName : String!) -> YTKTable{
         return YTKTable(db: self.db, tableName)
     }
     
-    public func createTable(tableName:String!)->(Bool){
-        if !YTKTable.checkTableName(tableName) {
-            return false
-        }
-        if let statement = (db?.create(table: db![tableName] , ifNotExists : true){t in
-            t.column(ID)
-            t.column(JSON)
-            t.column(CREATEDTIME, defaultValue: NSDate())
-            t.primaryKey(ID)
-        }) where !statement.failed{
-            return true
-        }else{
-            printYTKLog("failed to create table : \(tableName)")
-            return false
-        }
-    }
-    
-    public func dropTable(tableName:String!)->(Bool){
-        if !YTKTable.checkTableName(tableName) {
-            return false
+    public func createTable(tableName:String!) throws{
+        
+        guard YTKTable.checkTableName(tableName) else{
+            throw YTKError.NameFormatError
         }
         
-        if let statement = (db?.drop(table: db![tableName], ifExists: false)) where !statement.failed{
-            return true
-        }else{
-            printYTKLog("failed to drop table : \(tableName)")
-            return false
+        do{
+            try db?.run(Table(tableName).create(ifNotExists: true){ t in
+                t.column(ID,primaryKey:true)
+                t.column(JSON)
+                t.column(CREATEDTIME,defaultValue:NSDate())
+            })
+        }catch let error{
+            print("failed to create table : \(tableName)")
+            throw error
+        }
+
+    }
+    
+    public func dropTable(tableName:String!) throws{
+        
+        guard YTKTable.checkTableName(tableName) else{
+            throw YTKError.NameFormatError
+        }
+        
+        do{
+            try db?.run(Table(tableName).drop(ifExists: false))
+        }catch let error{
+            print("failed to drop table : \(tableName)")
+            throw error
         }
         
     }
     
     
-}
-
-
-extension NSDate: Value {
-    public class var declaredDatatype: String {
-        return Int64.declaredDatatype
-    }
-    public class func fromDatatypeValue(intValue: Int64) -> Self {
-        return self(timeIntervalSince1970: NSTimeInterval(intValue))
-    }
-    public var datatypeValue: Int64 {
-        return Int64(timeIntervalSince1970)
-    }
 }
 
 

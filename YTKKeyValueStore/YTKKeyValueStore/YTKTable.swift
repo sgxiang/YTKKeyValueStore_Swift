@@ -16,52 +16,72 @@ public struct YTKTable{
     
     public var isExists : Bool {
         get{
-            return self.query != nil
+            return self.tableHandle != nil
         }
     }
     
-    internal let query : Query?
+    internal let db : Connection?
+    internal let tableHandle : Table?
     
-    internal init(db : Database?, _ tableName : String!){
+    internal init(db : Connection?, _ tableName : String!){
         if YTKTable.checkTableName(tableName){
+            self.db = db
             self.name = tableName
-            self.query = db?[tableName]
+            self.tableHandle = Table(tableName)
         }else{
+            self.db = nil
             self.name = nil
-            self.query = nil
+            self.tableHandle = nil
         }
     }
     
     internal static func checkTableName(tableName : String!)->Bool{
-        if find(tableName, " ") != nil{
-            printYTKLog("table name : \(tableName) format error")
+        if tableName.containsString(" "){
+            print("table name : \(tableName) format error")
             return false
         }
-        
         return true
     }
     
-    public func clear()->Int?{
-        let changes = self.query?.delete()
-        printYTKLog("table : \(self.name)  number of deleted rows : \(changes)")
-        return changes
+    public func clear() throws ->Int{
+        
+        do{
+            let changes = try db?.run(tableHandle!.delete()) ?? 0
+            print("table : \(self.name)  number of deleted rows : \(changes)")
+            return changes
+        }catch let error{
+            throw error
+        }
+        
     }
     
-    public func delete(objectIds : String... ) -> Int?{
-        let changes = self.query?.filter( contains(objectIds, ID) ).delete()
-        printYTKLog("table : \(self.name)  number of deleted rows : \(changes)")
-        return changes
+    public func delete(objectIds : String... ) throws -> Int{
+        
+        do{
+            let changes = try db?.run(tableHandle!.filter(objectIds.contains(ID)).delete()) ?? 0
+            print("table : \(self.name)  number of deleted rows : \(changes)")
+            return changes
+        }catch let error{
+            throw error
+        }
+
     }
     
-    public func deletePreLike(objectId : String!) -> Int?{
-        let changes = self.query?.filter( SQLite.like("\(objectId)%", ID) ).delete()
-        printYTKLog("table : \(self.name)  number of deleted rows : \(changes)")
-        return changes
+    public func deletePreLike(objectId : String!) throws -> Int{
+        
+        do{
+            let changes = try db?.run(tableHandle!.filter(ID.like("\(objectId)%")).delete()) ?? 0
+            print("table : \(self.name)  number of deleted rows : \(changes)")
+            return changes
+        }catch let error{
+            throw error
+        }
     }
     
     private enum YTKKeyValueType{
         case String,Number,Object
     }
+    
     private static func valueWithType(object : AnyObject!)->YTKKeyValueType{
         if object is String{
             return .String
@@ -72,31 +92,32 @@ public struct YTKTable{
         }
     }
     
-    public func put( set :  YTKSetter )->Int64?{
+    public func put( set :  YTKSetter ) throws{
         
-        var jsonString : String? = set.jsonString
-        
-        if jsonString == nil{
-            printYTKLog("no support db value")
-            return nil
+        guard let jsonString : String = set.jsonString else{
+            throw YTKError.ValueNoSupport
         }
         
-        printYTKLog("[put] id : \(set.objectId)  jsonString : \(set.jsonString!)")
+        let query = tableHandle!.filter(ID == set.objectId).limit(1)
         
-        var changes : Int64?
-        if let filter =  self.query?.filter(ID == set.objectId).limit(1){
-            if filter.isEmpty{
-                changes = self.query?.insert(ID <- set.objectId , JSON <- jsonString! , CREATEDTIME <- NSDate())
+        if let filter = db?.prepare(query){
+            if filter.underestimateCount() == 0{
+                do{
+                    try db?.run( tableHandle!.insert(ID <- set.objectId,JSON <- jsonString,CREATEDTIME <- NSDate()) )
+                    print("[insert] id : \(set.objectId)  jsonString : \(set.jsonString!)")
+                }catch let error{
+                    throw error
+                }
             }else{
-                let v : Int? = filter.update(JSON <- jsonString! , CREATEDTIME <- NSDate())
-                changes = v != nil ? Int64(v!) : nil
+                do{
+                    try db?.run(query.update(JSON <- jsonString,CREATEDTIME <- NSDate()))
+                    print("[update] id : \(set.objectId)  jsonString : \(set.jsonString!)")
+                }catch let error{
+                    throw error
+                }
             }
         }
         
-        if changes == nil{
-            printYTKLog("failed to insert/replace into table : \(self.name)")
-        }
-        return changes
     }
     
     public func get( objectId : String! ) -> YTKObject?{
@@ -108,36 +129,32 @@ public struct YTKTable{
     
     public func getItem(objectId :String!)->YTKItem?{
         
-        if let filter =  self.query?.filter(ID == objectId).limit(1){
-            if filter.isEmpty{
-                return nil
-            }else{
+        if let filter = db?.prepare( tableHandle!.filter(ID == objectId).limit(1) ){
+            for v in filter{
                 var item = YTKItem()
                 item.itemId = objectId
-                item.itemObject = YTKObject(value: filter.first![JSON] )
-                item.createdTime = filter.first!.get(CREATEDTIME)
+                item.itemObject = YTKObject(value: v[JSON] )
+                item.createdTime = v.get(CREATEDTIME)
                 return item
-                
             }
         }
         return nil
     }
     
-    public func getAllItems()->[YTKItem]?{
+    public func getAllItems()->[YTKItem]{
         
         var result : [YTKItem] = []
         
-        if let table = self.query{
-            for row in table{
+        if let filter = db?.prepare(tableHandle!){
+            for vs in filter{
                 var item = YTKItem()
-                item.itemId = row[ID]
-                item.itemObject = YTKObject(value:row[JSON])
-                item.createdTime = row.get(CREATEDTIME)
+                item.itemId = vs[ID]
+                item.itemObject = YTKObject(value:vs[JSON])
+                item.createdTime = vs.get(CREATEDTIME)
                 result.append(item)
             }
         }
-        return result.count == 0 ? nil : result
-        
+        return result
     }
     
     

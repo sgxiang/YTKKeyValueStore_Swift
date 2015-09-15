@@ -17,18 +17,27 @@ class YTKKeyValueStoreTests : XCTestCase {
     
     override func setUp() {
         super.setUp()
-        _store = YTKKeyValueStore("db_test.db")
-        let success = _store.createTable("test_table")
-        if success{
-            _table = _store["test_table"]
-        }else{
-            XCTAssertFalse(true)
+        
+        do{
+            _store = try YTKKeyValueStore("db_test.db")
+        }catch let error as NSError{
+            print(error.localizedDescription)
+            return
         }
+        
+        do{
+            try _store.createTable("test_table")
+            _table = _store["test_table"]
+        }catch let error as NSError{
+            print(error.localizedDescription)
+            return
+        }
+        
     }
     
     override func tearDown() {
-        _table.clear()
-        _store.dropTable("test_table")
+        try! _table.clear()
+        try! _store.dropTable("test_table")
         super.tearDown()
     }
 
@@ -39,10 +48,10 @@ class YTKKeyValueStoreTests : XCTestCase {
         let num2 = 1.3
         let user : Dictionary<String,AnyObject> = ["id":1 , "name" : "tangqiao" , "age" : 30]
         
-        _table.put("str" <- (str as NSString) )
-        _table.put("num1" <- (num1 as NSNumber))
-        _table.put("num2" <- (num2 as NSNumber))
-        _table.put("user" <- (user as NSDictionary))
+        try! _table.put("str" <- (str as NSString) )
+        try! _table.put("num1" <- (num1 as NSNumber))
+        try! _table.put("num2" <- (num2 as NSNumber))
+        try! _table.put("user" <- (user as NSDictionary))
         
         
         if let result =  _table.get("str")?.stringValue{
@@ -64,14 +73,14 @@ class YTKKeyValueStoreTests : XCTestCase {
         }
         
         if let result =  _table.get("user")?.dictionaryValue{
-            XCTAssertEqual(user["id"] as! Int, result["id"] as! Int)
-            XCTAssertEqual(user["name"] as! String, result["name"] as! String)
-            XCTAssertEqual(user["age"] as! Int, result["age"] as! Int)
+            XCTAssertEqual(user["id"] as? Int, result["id"] as? Int)
+            XCTAssertEqual(user["name"] as? String, result["name"] as? String)
+            XCTAssertEqual(user["age"] as? Int, result["age"] as? Int)
         }else{
             XCTAssertFalse(true)
         }
         
-        if let result =  _table.get("user!")?.dictionaryValue{
+        if let _ =  _table.get("user!")?.dictionaryValue{
             XCTAssertFalse(true)
         }else{
             XCTAssertTrue(true)

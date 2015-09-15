@@ -8,9 +8,9 @@ objc version ：https://github.com/yuantiku/YTKKeyValueStore
 
 ## Requirements
 
-- iOS 7.0+ 
-- Xcode 6.3
-
+- iOS 8.0+ 
+- Xcode 7.0
+- Swift 2.0
 
 ## Usage 
 
@@ -21,13 +21,13 @@ import YTKKeyValueStore
 ### YTKKeyValueStore
 
 ```swift
-var store = YTKKeyValueStore("test.db")   // create or open the key-value store
+var store = try! YTKKeyValueStore("test.db")   // create or open the key-value store
 
-store.createTable("User")    // create table
+try!store.createTable("User")    // create table
 
 let table = store["User"]      // get table (YTKTable)
 
-store.dropTable("User")    // drop table
+try! store.dropTable("User")    // drop table
 ```
 
 ### YTKTable
@@ -35,7 +35,7 @@ store.dropTable("User")    // drop table
 ```swift
 let isExists = table.isExists
 
-table.put( "name" <- ("sgxiang" as NSString) )     // put value("sgxiang") for key("name") into table , support string,number,dictionary,array
+try! table.put( "name" <- ("sgxiang" as NSString) )     // put value("sgxiang") for key("name") into table , support string,number,dictionary,array
 
 
 let objct = table.get("name")    // get object with key , return YTKObject?
@@ -43,9 +43,9 @@ let item = table.getItem("name")   // get item with key ,return YTKItem?
 let allItems = table.getAllItems()  // get all item with key , return  [YTKItem]?
 
 
-table.clear()  // clear table
-table.delete("name1","name2")   // delete row where key == "name1" and "name2"
-table.deletePreLike("name")   // delete row where key pre like "name"
+try! table.clear()  // clear table
+try! table.delete("name1","name2")   // delete row where key == "name1" and "name2"
+try! table.deletePreLike("name")   // delete row where key pre like "name"
 ```
 
 ### YTKItem
