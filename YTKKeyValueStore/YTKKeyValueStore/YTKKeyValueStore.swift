@@ -22,7 +22,7 @@ public class YTKKeyValueStore{
         self.init(dbPath:"\(path)/\(dbName)")
         
         guard db != nil else{
-            throw YTKError.ValueNoSupport
+            throw YTKError.DBConnectionError
         }
 
     }

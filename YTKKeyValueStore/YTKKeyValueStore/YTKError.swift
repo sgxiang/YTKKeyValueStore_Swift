@@ -9,6 +9,7 @@
 import UIKit
 
 enum YTKError: ErrorType {
+    case DBConnectionError
     case NameFormatError
     case ValueNoSupport
 }
