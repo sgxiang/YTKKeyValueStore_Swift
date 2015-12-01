@@ -101,7 +101,7 @@ public struct YTKTable{
         let query = tableHandle!.filter(ID == set.objectId).limit(1)
         
         if let filter = db?.prepare(query){
-            if filter.underestimateCount() == 0{
+            if filter.generate().next() == nil{
                 do{
                     try db?.run( tableHandle!.insert(ID <- set.objectId,JSON <- jsonString,CREATEDTIME <- NSDate()) )
                     print("[insert] id : \(set.objectId)  jsonString : \(set.jsonString!)")
