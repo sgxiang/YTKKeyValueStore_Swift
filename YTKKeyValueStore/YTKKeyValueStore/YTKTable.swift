@@ -16,7 +16,10 @@ public struct YTKTable{
     
     public var isExists : Bool {
         get{
-            return self.tableHandle != nil
+            guard tableHandle != nil else{
+                return false
+            }
+            return db?.scalar("SELECT EXISTS (SELECT * FROM sqlite_master WHERE type = 'table' AND name = ?)",name) as! Int64 > 0
         }
     }
     
