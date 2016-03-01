@@ -11,14 +11,12 @@
 		1A5891B11A8B4F6300155614 /* YTKKeyValueStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5891A51A8B4F6200155614 /* YTKKeyValueStore.framework */; };
 		1A5891B81A8B4F6300155614 /* YTKKeyValueStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891B71A8B4F6300155614 /* YTKKeyValueStoreTests.swift */; };
 		1A5891C21A8B4F7A00155614 /* YTKKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891C11A8B4F7A00155614 /* YTKKeyValueStore.swift */; };
-		1A5891D41A8B4FE400155614 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5891CB1A8B4FC100155614 /* SQLite.framework */; };
-		1A5891D61A8B4FEE00155614 /* SQLite.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1A5891CB1A8B4FC100155614 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1A5891EC1A8B5DB600155614 /* YTKObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891EB1A8B5DB600155614 /* YTKObject.swift */; };
 		1A5891F11A8B5DEE00155614 /* YTKSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891F01A8B5DEE00155614 /* YTKSetter.swift */; };
 		1A5891F31A8B5E1B00155614 /* YTKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891F21A8B5E1B00155614 /* YTKTable.swift */; };
 		1A5891F51A8B5E5D00155614 /* YTKConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891F41A8B5E5D00155614 /* YTKConfig.swift */; };
 		1A5891F71A8B5EBE00155614 /* YTKItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5891F61A8B5EBE00155614 /* YTKItem.swift */; };
-		1A81A1671BA80B0400A53DE1 /* YTKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A81A1661BA80B0400A53DE1 /* YTKError.swift */; settings = {ASSET_TAGS = (); }; };
+		1A81A1671BA80B0400A53DE1 /* YTKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A81A1661BA80B0400A53DE1 /* YTKError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,69 +27,6 @@
 			remoteGlobalIDString = 1A5891A41A8B4F6200155614;
 			remoteInfo = YTKKeyValueStore;
 		};
-		1A5891CA1A8B4FC100155614 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DC3773F319C8CBB3004FCF85;
-			remoteInfo = "SQLite iOS";
-		};
-		1A5891CC1A8B4FC100155614 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DC3773FE19C8CBB3004FCF85;
-			remoteInfo = "SQLite iOS Tests";
-		};
-		1A5891CE1A8B4FC100155614 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DC37741419C8CC2F004FCF85;
-			remoteInfo = "SQLite Mac";
-		};
-		1A5891D01A8B4FC100155614 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DC37741E19C8CC2F004FCF85;
-			remoteInfo = "SQLite Mac Tests";
-		};
-		1A5891D21A8B4FE000155614 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = DC2B29E11B26F718001C60EA;
-			remoteInfo = "SQLite iOS";
-		};
-		1A81A15E1BA7F48200A53DE1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DCE7BB7A1B7434F90040D364;
-			remoteInfo = "SQLiteCipher iOS";
-		};
-		1A81A1601BA7F48200A53DE1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DCE7BB831B7434F90040D364;
-			remoteInfo = "SQLiteCipher iOS Tests";
-		};
-		1A81A1621BA7F48200A53DE1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DCE7BBB01B7438610040D364;
-			remoteInfo = "SQLiteCipher Mac";
-		};
-		1A81A1641BA7F48200A53DE1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DCE7BBB91B7438620040D364;
-			remoteInfo = "SQLiteCipher Mac Tests";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -101,7 +36,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1A5891D61A8B4FEE00155614 /* SQLite.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +49,6 @@
 		1A5891B61A8B4F6300155614 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A5891B71A8B4F6300155614 /* YTKKeyValueStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTKKeyValueStoreTests.swift; sourceTree = "<group>"; };
 		1A5891C11A8B4F7A00155614 /* YTKKeyValueStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKKeyValueStore.swift; sourceTree = "<group>"; };
-		1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = ../../SQLite.swift/SQLite.xcodeproj; sourceTree = "<group>"; };
 		1A5891EB1A8B5DB600155614 /* YTKObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKObject.swift; sourceTree = "<group>"; };
 		1A5891F01A8B5DEE00155614 /* YTKSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKSetter.swift; sourceTree = "<group>"; };
 		1A5891F21A8B5E1B00155614 /* YTKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKTable.swift; sourceTree = "<group>"; };
@@ -129,7 +62,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A5891D41A8B4FE400155614 /* SQLite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,7 +97,6 @@
 		1A5891A71A8B4F6200155614 /* YTKKeyValueStore */ = {
 			isa = PBXGroup;
 			children = (
-				1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */,
 				1A5891C11A8B4F7A00155614 /* YTKKeyValueStore.swift */,
 				1A5891F21A8B5E1B00155614 /* YTKTable.swift */,
 				1A5891F01A8B5DEE00155614 /* YTKSetter.swift */,
@@ -204,21 +135,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1A5891C41A8B4FC100155614 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				1A5891CB1A8B4FC100155614 /* SQLite.framework */,
-				1A5891CD1A8B4FC100155614 /* SQLite iOS Tests.xctest */,
-				1A5891CF1A8B4FC100155614 /* SQLite.framework */,
-				1A5891D11A8B4FC100155614 /* SQLite Mac Tests.xctest */,
-				1A81A15F1BA7F48200A53DE1 /* SQLiteCipher.framework */,
-				1A81A1611BA7F48200A53DE1 /* SQLiteCipher iOS Tests.xctest */,
-				1A81A1631BA7F48200A53DE1 /* SQLiteCipher.framework */,
-				1A81A1651BA7F48200A53DE1 /* SQLiteCipher Mac Tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -246,7 +162,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				1A5891D31A8B4FE000155614 /* PBXTargetDependency */,
 			);
 			name = YTKKeyValueStore;
 			productName = YTKKeyValueStore;
@@ -299,12 +214,6 @@
 			mainGroup = 1A58919B1A8B4F6200155614;
 			productRefGroup = 1A5891A61A8B4F6200155614 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 1A5891C41A8B4FC100155614 /* Products */;
-					ProjectRef = 1A5891C31A8B4FC100155614 /* SQLite.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				1A5891A41A8B4F6200155614 /* YTKKeyValueStore */,
@@ -312,65 +221,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		1A5891CB1A8B4FC100155614 /* SQLite.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SQLite.framework;
-			remoteRef = 1A5891CA1A8B4FC100155614 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1A5891CD1A8B4FC100155614 /* SQLite iOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SQLite iOS Tests.xctest";
-			remoteRef = 1A5891CC1A8B4FC100155614 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1A5891CF1A8B4FC100155614 /* SQLite.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SQLite.framework;
-			remoteRef = 1A5891CE1A8B4FC100155614 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1A5891D11A8B4FC100155614 /* SQLite Mac Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SQLite Mac Tests.xctest";
-			remoteRef = 1A5891D01A8B4FC100155614 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1A81A15F1BA7F48200A53DE1 /* SQLiteCipher.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SQLiteCipher.framework;
-			remoteRef = 1A81A15E1BA7F48200A53DE1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1A81A1611BA7F48200A53DE1 /* SQLiteCipher iOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SQLiteCipher iOS Tests.xctest";
-			remoteRef = 1A81A1601BA7F48200A53DE1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1A81A1631BA7F48200A53DE1 /* SQLiteCipher.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SQLiteCipher.framework;
-			remoteRef = 1A81A1621BA7F48200A53DE1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1A81A1651BA7F48200A53DE1 /* SQLiteCipher Mac Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SQLiteCipher Mac Tests.xctest";
-			remoteRef = 1A81A1641BA7F48200A53DE1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1A5891A31A8B4F6200155614 /* Resources */ = {
@@ -419,11 +269,6 @@
 			isa = PBXTargetDependency;
 			target = 1A5891A41A8B4F6200155614 /* YTKKeyValueStore */;
 			targetProxy = 1A5891B21A8B4F6300155614 /* PBXContainerItemProxy */;
-		};
-		1A5891D31A8B4FE000155614 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "SQLite iOS";
-			targetProxy = 1A5891D21A8B4FE000155614 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

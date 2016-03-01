@@ -102,60 +102,73 @@ public struct YTKTable{
         }
         
         let query = tableHandle!.filter(ID == set.objectId).limit(1)
-        
-        if let filter = db?.prepare(query){
-            if filter.generate().next() == nil{
-                do{
-                    try db?.run( tableHandle!.insert(ID <- set.objectId,JSON <- jsonString,CREATEDTIME <- NSDate()) )
-                    print("[insert] id : \(set.objectId)  jsonString : \(set.jsonString!)")
-                }catch let error{
-                    throw error
-                }
-            }else{
-                do{
-                    try db?.run(query.update(JSON <- jsonString,CREATEDTIME <- NSDate()))
-                    print("[update] id : \(set.objectId)  jsonString : \(set.jsonString!)")
-                }catch let error{
-                    throw error
+        do{
+            if let filter = try db?.prepare(query){
+                if filter.generate().next() == nil{
+                    do{
+                        try db?.run( tableHandle!.insert(ID <- set.objectId,JSON <- jsonString,CREATEDTIME <- NSDate()) )
+                        print("[insert] id : \(set.objectId)  jsonString : \(set.jsonString!)")
+                    }catch let error{
+                        throw error
+                    }
+                }else{
+                    do{
+                        try db?.run(query.update(JSON <- jsonString,CREATEDTIME <- NSDate()))
+                        print("[update] id : \(set.objectId)  jsonString : \(set.jsonString!)")
+                    }catch let error{
+                        throw error
+                    }
                 }
             }
+        }catch let error{
+            throw error
         }
         
     }
     
-    public func get( objectId : String! ) -> YTKObject?{
-        if let item = self.getItem(objectId){
-            return item.itemObject
+    public func get( objectId : String! ) throws -> YTKObject?{
+        do{
+            if let item = try self.getItem(objectId){
+                return item.itemObject
+            }
+        }catch let error{
+            throw error
         }
         return nil
     }
     
-    public func getItem(objectId :String!)->YTKItem?{
-        
-        if let filter = db?.prepare( tableHandle!.filter(ID == objectId).limit(1) ){
-            for v in filter{
-                var item = YTKItem()
-                item.itemId = objectId
-                item.itemObject = YTKObject(value: v[JSON] )
-                item.createdTime = v.get(CREATEDTIME)
-                return item
+    public func getItem(objectId :String!) throws ->YTKItem?{
+        do{
+            if let filter = try db?.prepare( tableHandle!.filter(ID == objectId).limit(1) ){
+                for v in filter{
+                    var item = YTKItem()
+                    item.itemId = objectId
+                    item.itemObject = YTKObject(value: v[JSON] )
+                    item.createdTime = v.get(CREATEDTIME)
+                    return item
+                }
             }
+        }catch let error{
+            throw error
         }
         return nil
     }
     
-    public func getAllItems()->[YTKItem]{
+    public func getAllItems() throws ->[YTKItem]{
         
         var result : [YTKItem] = []
-        
-        if let filter = db?.prepare(tableHandle!){
-            for vs in filter{
-                var item = YTKItem()
-                item.itemId = vs[ID]
-                item.itemObject = YTKObject(value:vs[JSON])
-                item.createdTime = vs.get(CREATEDTIME)
-                result.append(item)
+        do{
+            if let filter = try db?.prepare(tableHandle!){
+                for vs in filter{
+                    var item = YTKItem()
+                    item.itemId = vs[ID]
+                    item.itemObject = YTKObject(value:vs[JSON])
+                    item.createdTime = vs.get(CREATEDTIME)
+                    result.append(item)
+                }
             }
+        }catch let error{
+            throw error
         }
         return result
     }

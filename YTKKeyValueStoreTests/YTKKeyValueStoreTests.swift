@@ -54,25 +54,25 @@ class YTKKeyValueStoreTests : XCTestCase {
         try! _table.put("user" <- user)
         
         
-        if let result =  _table.get("str")?.stringValue{
+        if let result = try! _table.get("str")?.stringValue{
             XCTAssertEqual(str, result)
         }else{
             XCTAssertFalse(true)
         }
         
-        if let result =  _table.get("num1")?.numberValue{
+        if let result = try! _table.get("num1")?.numberValue{
             XCTAssertEqual(num1, result)
         }else{
             XCTAssertFalse(true)
         }
         
-        if let result =  _table.get("num2")?.numberValue{
+        if let result = try! _table.get("num2")?.numberValue{
             XCTAssertEqual(num2, result)
         }else{
             XCTAssertFalse(true)
         }
         
-        if let result =  _table.get("user")?.dictionaryValue{
+        if let result = try! _table.get("user")?.dictionaryValue{
             XCTAssertEqual(user["id"] as? Int, result["id"] as? Int)
             XCTAssertEqual(user["name"] as? String, result["name"] as? String)
             XCTAssertEqual(user["age"] as? Int, result["age"] as? Int)
@@ -80,7 +80,7 @@ class YTKKeyValueStoreTests : XCTestCase {
             XCTAssertFalse(true)
         }
         
-        if let _ =  _table.get("user!")?.dictionaryValue{
+        if let _ = try! _table.get("user!")?.dictionaryValue{
             XCTAssertFalse(true)
         }else{
             XCTAssertTrue(true)
