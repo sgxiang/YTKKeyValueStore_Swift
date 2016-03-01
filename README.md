@@ -35,7 +35,7 @@ try! store.dropTable("User")    // drop table
 ```swift
 let isExists = table.isExists
 
-try! table.put( "name" <- "sgxiang)     // put value("sgxiang") for key("name") into table , support string,number,dictionary,array
+try! table.put( "name" <- "sgxiang")     // put value("sgxiang") for key("name") into table , support string,number,dictionary,array
 
 
 let objct = table.get("name")    // get object with key , return YTKObject?
