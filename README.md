@@ -68,6 +68,29 @@ arrayValue        :     return  Array<AnyObject>?
 
 ## Installation
 
+### Carthage
+
+Update Cartfile to include the following:
+```
+github "stephencelis/SQLite.swift" ~> 0.9.2
+```
+
+Run `carthage update` and [add the appropriate framework][Carthage Usage].
+
+[Carthage Usage]: https://github.com/Carthage/Carthage#adding-frameworks-to-an-application
+
+### CocoaPods
+
+Update Podfile to include the following:
+
+```ruby
+use_frameworks!
+
+pod 'YTKKeyValueStore_Swift', '~> 0.3.4'
+```
+
+Run `pod install`
+
 ### Embedded Framework
 
 - Add YTKKeyValueStore as a submodule by opening the Terminal, cd-ing into your top-level project directory, and entering the following command:
@@ -85,18 +108,6 @@ $ git submodule add https://github.com/Sgxiang/YTKKeyValueStore_Swift.git
 Expand the "Target Dependencies" group, and add YTKKeyValueStore.framework.
 
 - Click on the + button at the top left of the panel and select "New Copy Files Phase". Rename this new phase to "Copy Frameworks", set the "Destination" to "Frameworks", and add YTKKeyValueStore.framework.
-
-### CocoaPods
-
-Update Podfile to include the following:
-
-```
-use_frameworks!
-
-pod 'YTKKeyValueStore_Swift', '~> 0.3.4'
-```
-
-Run `pod install`
 
 ## Communication
 
