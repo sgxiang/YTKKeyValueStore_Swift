@@ -72,7 +72,7 @@ arrayValue        :     return  Array<AnyObject>?
 
 Update Cartfile to include the following:
 ```
-github "stephencelis/SQLite.swift" ~> 0.9.2
+github "sgxiang/YTKKeyValueStore_Swift" ~> 0.3.4
 ```
 
 Run `carthage update` and [add the appropriate framework][Carthage Usage].
