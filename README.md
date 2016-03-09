@@ -1,11 +1,10 @@
 YTKKeyValueStore
 ==========
 
-[![CocoaPods Version](https://cocoapod-badges.herokuapp.com/v/YTKKeyValueStore_Swift/badge.png)](http://cocoadocs.org/docsets/YTKKeyValueStore_Swift) [![Platform](https://cocoapod-badges.herokuapp.com/p/YTKKeyValueStore_Swift/badge.png)](http://cocoadocs.org/docsets/YTKKeyValueStore_Swift)
+[![CocoaPods Version](https://cocoapod-badges.herokuapp.com/v/YTKKeyValueStore_Swift/badge.png)](http://cocoadocs.org/docsets/YTKKeyValueStore_Swift) [![Platform](https://cocoapod-badges.herokuapp.com/p/YTKKeyValueStore_Swift/badge.png)](http://cocoadocs.org/docsets/YTKKeyValueStore_Swift)![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
 
 objc version ：https://github.com/yuantiku/YTKKeyValueStore
 
-![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
 
 
 ## Requirements
