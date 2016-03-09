@@ -93,7 +93,7 @@ Update Podfile to include the following:
 ```
 use_frameworks!
 
-pod 'YTKKeyValueStore_Swift', '~> 0.3.3'
+pod 'YTKKeyValueStore_Swift', '~> 0.3.4'
 ```
 
 Run `pod install`
