@@ -1,6 +1,8 @@
 YTKKeyValueStore
 ==========
 
+[![Build Status][Badge]][Travis] [![CocoaPods Version](https://cocoapod-badges.herokuapp.com/v/YTKKeyValueStore_Swift/badge.png)](http://cocoadocs.org/docsets/YTKKeyValueStore_Swift) [![Platform](https://cocoapod-badges.herokuapp.com/p/YTKKeyValueStore_Swift/badge.png)](http://cocoadocs.org/docsets/YTKKeyValueStore_Swift)
+
 objc version ：https://github.com/yuantiku/YTKKeyValueStore
 
 ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
@@ -38,9 +40,9 @@ let isExists = table.isExists
 try! table.put( "name" <- "sgxiang")     // put value("sgxiang") for key("name") into table , support string,number,dictionary,array
 
 
-let objct = table.get("name")    // get object with key , return YTKObject?
-let item = table.getItem("name")   // get item with key ,return YTKItem?
-let allItems = table.getAllItems()  // get all item with key , return  [YTKItem]?
+let objct = try! table.get("name")    // get object with key , return YTKObject?
+let item = try! table.getItem("name")   // get item with key ,return YTKItem?
+let allItems = try! table.getAllItems()  // get all item with key , return  [YTKItem]?
 
 
 try! table.clear()  // clear table
@@ -85,9 +87,17 @@ Expand the "Target Dependencies" group, and add YTKKeyValueStore.framework.
 
 - Click on the + button at the top left of the panel and select "New Copy Files Phase". Rename this new phase to "Copy Frameworks", set the "Destination" to "Frameworks", and add YTKKeyValueStore.framework.
 
-### Source File
+### CocoaPods
 
-Copy source file into your project
+Update Podfile to include the following:
+
+```
+use_frameworks!
+
+pod 'YTKKeyValueStore_Swift', '~> 0.3.3'
+```
+
+Run `pod install`
 
 ## Communication
 
