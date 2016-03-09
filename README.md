@@ -1,10 +1,7 @@
 YTKKeyValueStore
 ==========
 
-[![Build Status][Badge]][Travis] [![CocoaPods Version](https://cocoapod-badges.herokuapp.com/v/YTKKeyValueStore_Swift/badge.png)](http://cocoadocs.org/docsets/YTKKeyValueStore_Swift) [![Platform](https://cocoapod-badges.herokuapp.com/p/YTKKeyValueStore_Swift/badge.png)](http://cocoadocs.org/docsets/YTKKeyValueStore_Swift)
-
-[Badge]: https://img.shields.io/travis/stephencelis/YTKKeyValueStore_Swift/master.svg?style=flat
-[Travis]: https://travis-ci.org/stephencelis/YTKKeyValueStore_Swift
+[![CocoaPods Version](https://cocoapod-badges.herokuapp.com/v/YTKKeyValueStore_Swift/badge.png)](http://cocoadocs.org/docsets/YTKKeyValueStore_Swift) [![Platform](https://cocoapod-badges.herokuapp.com/p/YTKKeyValueStore_Swift/badge.png)](http://cocoadocs.org/docsets/YTKKeyValueStore_Swift)
 
 objc version ：https://github.com/yuantiku/YTKKeyValueStore
 
