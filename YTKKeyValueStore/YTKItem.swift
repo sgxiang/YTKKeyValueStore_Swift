@@ -11,6 +11,6 @@ import UIKit
 public struct YTKItem{
     public var itemId : String?
     public var itemObject : YTKObject?
-    public var createdTime : NSDate?
+    public var createdTime : Date?
 }
 

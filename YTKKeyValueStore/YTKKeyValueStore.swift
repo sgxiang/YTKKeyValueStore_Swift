@@ -19,10 +19,10 @@ public class YTKKeyValueStore{
     
     convenience public init(_ dbName : String! = DEFAULT_DB_NAME , path : String! = PATH_OF_DOCUMENT) throws{
 
-        self.init(dbPath:"\(path)/\(dbName)")
+        self.init(dbPath:"\(path!)/\(dbName!)")
         
         guard db != nil else{
-            throw YTKError.DBConnectionError
+            throw YTKError.dbConnectionError
         }
 
     }
@@ -34,14 +34,14 @@ public class YTKKeyValueStore{
     public func createTable(tableName:String!) throws{
         
         guard YTKTable.checkTableName(tableName) else{
-            throw YTKError.NameFormatError
+            throw YTKError.nameFormatError
         }
         
         do{
             try db?.run(Table(tableName).create(ifNotExists: true){ t in
                 t.column(ID,primaryKey:true)
                 t.column(JSON)
-                t.column(CREATEDTIME,defaultValue:NSDate())
+                t.column(CREATEDTIME,defaultValue:Date())
             })
         }catch let error{
             print("failed to create table : \(tableName)")
@@ -53,7 +53,7 @@ public class YTKKeyValueStore{
     public func dropTable(tableName:String!) throws{
         
         guard YTKTable.checkTableName(tableName) else{
-            throw YTKError.NameFormatError
+            throw YTKError.nameFormatError
         }
         
         do{

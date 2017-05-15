@@ -35,7 +35,7 @@ public struct YTKObject{
             }else{
                 
                 do{
-                    let result: AnyObject? = try NSJSONSerialization.JSONObjectWithData(self.value!.dataUsingEncoding(NSUTF8StringEncoding)!, options: .AllowFragments)
+                    let result: Any? = try JSONSerialization.jsonObject(with: self.value!.data(using: String.Encoding.utf8.rawValue)!, options: .allowFragments)
                     if let num = result as? [NSNumber]{
                         return num[0]
                     }else{
@@ -56,7 +56,7 @@ public struct YTKObject{
             if self.value == nil { return nil}
             
             do{
-                let result: AnyObject? = try NSJSONSerialization.JSONObjectWithData(self.value!.dataUsingEncoding(NSUTF8StringEncoding)!, options: .AllowFragments)
+                let result: Any? = try JSONSerialization.jsonObject(with: self.value!.data(using: String.Encoding.utf8.rawValue)!, options: .allowFragments)
                 if let dic = result as? Dictionary<String , AnyObject>{
                     return dic
                 }else{
@@ -76,7 +76,7 @@ public struct YTKObject{
             if self.value == nil { return nil}
             
             do{
-                let result: AnyObject? = try NSJSONSerialization.JSONObjectWithData(self.value!.dataUsingEncoding(NSUTF8StringEncoding)!, options: .AllowFragments)
+                let result: Any? = try JSONSerialization.jsonObject(with: self.value!.data(using: String.Encoding.utf8.rawValue)!, options: .allowFragments)
                 if let dic = result as? Array<AnyObject>{
                     return dic
                 }else{
