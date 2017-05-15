@@ -10,8 +10,8 @@ objc version ：https://github.com/yuantiku/YTKKeyValueStore
 ## Requirements
 
 - iOS 8.0+ 
-- Xcode 7.0
-- Swift 2.0
+- Xcode 8.0
+- Swift 3.0
 
 ## Usage 
 
@@ -22,9 +22,9 @@ import YTKKeyValueStore
 ### YTKKeyValueStore
 
 ```swift
-var store = try! YTKKeyValueStore("test.db")   // create or open the key-value store
+var store = try! YTKKeyValueStore("dbtest.sqlite3")   // create or open the key-value store
 
-try! store.createTable("User")    // create table
+try! store.createTable(tableName: "User")    // create table
 
 let table = store["User"]      // get table (YTKTable)
 
@@ -72,7 +72,7 @@ arrayValue        :     return  Array<AnyObject>?
 
 Update Cartfile to include the following:
 ```
-github "sgxiang/YTKKeyValueStore_Swift" ~> 0.3.4
+github "sgxiang/YTKKeyValueStore_Swift" ~> 0.4.1
 ```
 
 Run `carthage update` and [add the appropriate framework][Carthage Usage].
@@ -86,7 +86,7 @@ Update Podfile to include the following:
 ```ruby
 use_frameworks!
 
-pod 'YTKKeyValueStore_Swift', '~> 0.3.4'
+pod 'YTKKeyValueStore_Swift', '~> 0.4.1'
 ```
 
 Run `pod install`
