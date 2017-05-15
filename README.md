@@ -9,7 +9,7 @@ objc version ：https://github.com/yuantiku/YTKKeyValueStore
 
 ## Requirements
 
-- iOS 8.0+ 
+- iOS 9.0+ 
 - Xcode 8.0
 - Swift 3.0
 
@@ -72,7 +72,7 @@ arrayValue        :     return  Array<AnyObject>?
 
 Update Cartfile to include the following:
 ```
-github "sgxiang/YTKKeyValueStore_Swift" ~> 0.4.1
+github "sgxiang/YTKKeyValueStore_Swift" ~> 0.4.2
 ```
 
 Run `carthage update` and [add the appropriate framework][Carthage Usage].
@@ -86,7 +86,7 @@ Update Podfile to include the following:
 ```ruby
 use_frameworks!
 
-pod 'YTKKeyValueStore_Swift', '~> 0.4.1'
+pod 'YTKKeyValueStore_Swift', '~> 0.4.2'
 ```
 
 Run `pod install`
