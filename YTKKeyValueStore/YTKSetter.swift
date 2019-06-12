@@ -55,6 +55,6 @@ precedencegroup MultiplicationPrecedence {
     higherThan: AdditionPrecedence
 }
 
-public func <- (objectId: String!, object: Any!) -> YTKSetter{
+public func <- (objectId: String!, object: Any) -> YTKSetter{
     return YTKSetter(objectId , object)
 }

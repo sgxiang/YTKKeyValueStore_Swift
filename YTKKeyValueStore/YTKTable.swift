@@ -30,7 +30,7 @@ public struct YTKTable{
     internal let db : Connection?
     internal let tableHandle : Table?
     
-    internal init(db : Connection?, _ tableName : String!){
+    internal init(db : Connection?, _ tableName : String){
         if YTKTable.checkTableName(tableName){
             self.db = db
             self.name = tableName
@@ -42,7 +42,7 @@ public struct YTKTable{
         }
     }
     
-    internal static func checkTableName(_ tableName : String!)->Bool{
+    internal static func checkTableName(_ tableName : String)->Bool{
         if tableName.contains(" "){
             print("table name : \(tableName) format error")
             return false
@@ -74,7 +74,7 @@ public struct YTKTable{
 
     }
     
-    public func deletePreLike(_ objectId : String!) throws -> Int{
+    public func deletePreLike(_ objectId : String) throws -> Int{
         
         do{
             let changes = try db?.run(tableHandle!.filter(ID.like("\(objectId)%")).delete()) ?? 0
@@ -89,7 +89,7 @@ public struct YTKTable{
         case string,number,object
     }
     
-    fileprivate static func valueWithType(_ object : AnyObject!)->YTKKeyValueType{
+    fileprivate static func valueWithType(_ object : AnyObject)->YTKKeyValueType{
         if object is String{
             return .string
         }else if (object as? NSNumber) != nil{
@@ -111,14 +111,14 @@ public struct YTKTable{
                 if filter.makeIterator().next() == nil{
                     do{
                         try db?.run( tableHandle!.insert(ID <- set.objectId,JSON <- jsonString,CREATEDTIME <- Date()) )
-                        print("[insert] id : \(set.objectId)  jsonString : \(set.jsonString!)")
+                        print("[insert] id : \(set.objectId!)  jsonString : \(set.jsonString!)")
                     }catch let error{
                         throw error
                     }
                 }else{
                     do{
                         try db?.run(query.update(JSON <- jsonString,CREATEDTIME <- Date()))
-                        print("[update] id : \(set.objectId)  jsonString : \(set.jsonString!)")
+                        print("[update] id : \(set.objectId!)  jsonString : \(set.jsonString!)")
                     }catch let error{
                         throw error
                     }
@@ -130,7 +130,7 @@ public struct YTKTable{
         
     }
     
-    public func get( _ objectId : String! ) throws -> YTKObject?{
+    public func get( _ objectId : String ) throws -> YTKObject?{
         do{
             if let item = try self.getItem(objectId){
                 return item.itemObject
@@ -141,14 +141,14 @@ public struct YTKTable{
         return nil
     }
     
-    public func getItem(_ objectId :String!) throws ->YTKItem?{
+    public func getItem(_ objectId :String) throws ->YTKItem?{
         do{
             if let filter = try db?.prepare( tableHandle!.filter(ID == objectId).limit(1) ){
                 for v in filter{
                     var item = YTKItem()
                     item.itemId = objectId
                     item.itemObject = YTKObject(value: v[JSON] as AnyObject )
-                    item.createdTime = v.get(CREATEDTIME)
+                    item.createdTime = try? v.get(CREATEDTIME)
                     return item
                 }
             }
@@ -167,7 +167,7 @@ public struct YTKTable{
                     var item = YTKItem()
                     item.itemId = vs[ID]
                     item.itemObject = YTKObject(value:vs[JSON] as AnyObject)
-                    item.createdTime = vs.get(CREATEDTIME)
+                    item.createdTime = try? vs.get(CREATEDTIME)
                     result.append(item)
                 }
             }

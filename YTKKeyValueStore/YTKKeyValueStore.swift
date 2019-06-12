@@ -13,13 +13,13 @@ public class YTKKeyValueStore{
     
     private var db : Connection?
     
-    private init(dbPath : String!) {
+    private init(dbPath : String) {
         db = try! Connection(dbPath)
     }
     
-    convenience public init(_ dbName : String! = DEFAULT_DB_NAME , path : String! = PATH_OF_DOCUMENT) throws{
+    convenience public init(_ dbName : String = DEFAULT_DB_NAME , path : String = PATH_OF_DOCUMENT) throws{
 
-        self.init(dbPath:"\(path!)/\(dbName!)")
+        self.init(dbPath:"\(path)/\(dbName)")
         
         guard db != nil else{
             throw YTKError.dbConnectionError
@@ -27,11 +27,11 @@ public class YTKKeyValueStore{
 
     }
     
-    public subscript (tableName : String!) -> YTKTable{
+    public subscript (tableName : String) -> YTKTable{
         return YTKTable(db: self.db, tableName)
     }
     
-    public func createTable(tableName:String!) throws{
+    public func createTable(tableName:String) throws{
         
         guard YTKTable.checkTableName(tableName) else{
             throw YTKError.nameFormatError
@@ -50,7 +50,7 @@ public class YTKKeyValueStore{
 
     }
     
-    public func dropTable(tableName:String!) throws{
+    public func dropTable(tableName:String) throws{
         
         guard YTKTable.checkTableName(tableName) else{
             throw YTKError.nameFormatError
