@@ -9,12 +9,12 @@
 import UIKit
 import SQLite
 
-internal let YTKDEBUG = true
+public let YTKDEBUG = true
 
-internal let PATH_OF_DOCUMENT : String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+public let PATH_OF_DOCUMENT : String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 
-internal let DEFAULT_DB_NAME = "database_swift.sqlite3"
+public let DEFAULT_DB_NAME = "database_swift.sqlite3"
 
-internal let ID = Expression<String>("id")
-internal let JSON = Expression<String>("json")
-internal let CREATEDTIME = Expression<Date>("createdTime")
+public let ID = Expression<String>("id")
+public let JSON = Expression<String>("json")
+public let CREATEDTIME = Expression<Date>("createdTime")
